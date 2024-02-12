@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('slug', models.SlugField(auto_created=True, unique=True)),
                 ('title', models.CharField(max_length=15)),
-                ('image', models.ImageField(upload_to='PROD_PIC/')),
+                ('image', models.ImageField(upload_to='PRODUCT_PIC/')),
                 ('condition', models.CharField(choices=[('NEW', 'NEW'), ('OLD', 'OLD')], max_length=3)),
                 ('price', models.DecimalField(decimal_places=2, max_digits=7)),
                 ('description', models.TextField(max_length=250)),
