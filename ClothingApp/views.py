@@ -7,5 +7,9 @@ def product(request, id):
     return render(request, 'Shop/all_product.html', locals())
 
 
+def single_product(request, id):
+    return render(request, 'Shop/single_product.html')
+
+
 
 
