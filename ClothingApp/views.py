@@ -8,7 +8,9 @@ def product(request, id):
 
 
 def single_product(request, id):
-    return render(request, 'Shop/single_product.html')
+    single_product = PRODUCT.objects.get(id=id)
+    return render(request, 'Shop/single_product.html', locals())
+
 
 
 
