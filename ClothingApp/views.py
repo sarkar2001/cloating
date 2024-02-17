@@ -12,7 +12,7 @@ def single_product(request, id):
     return render(request, 'Shop/single_product.html', locals())
 
 def AddtoCart(request, id):
-    pass
+   prod = PRODUCT
 
 
 
