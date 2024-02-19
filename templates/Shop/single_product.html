@@ -98,7 +98,7 @@
                         </form>
                     </div>
                                     <div class="single-add-to-cart">
-                                        <form action="#" class="cart-quantity">
+                                        <form action="{% url 'AddtoCart' single_product.id %}" class="cart-quantity">
                                             <div class="quantity">
                                                 <label>Quantity</label>
                                                 <div class="cart-plus-minus">
@@ -107,7 +107,7 @@
                                                     <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                                 </div>
                                             </div>
-                                            <a href="{%  %}"><button class="add-to-cart" type="submit">Add to cart</button></a>
+                                            <button class="add-to-cart" type="submit">Add to cart</button>
                                         </form>
                                     </div>
                                     <div class="product-additional-info">

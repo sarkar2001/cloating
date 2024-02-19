@@ -13,7 +13,13 @@ def single_product(request, id):
     return render(request, 'Shop/single_product.html', locals())
 
 def AddtoCart(request, id):
-   pass
+    prod= PRODUCT.objects.filter(id=id)
+    user = request.user
+    if user and prod:
+        cart = Cart.objects.get(user = user, product=prod)
+        print(cart)
+    return redirect(request.META['HTTP_REFERER'])
+
 
 
 
