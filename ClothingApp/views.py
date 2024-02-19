@@ -15,9 +15,11 @@ def single_product(request, id):
 def AddtoCart(request, id):
     prod= PRODUCT.objects.filter(id=id)
     user = request.user
-    if user and prod:
-        cart = Cart.objects.get(user = user, product=prod)
-        print(cart)
+    if prod:
+        if user.is_authenticated:
+            try:
+                pass
+
     return redirect(request.META['HTTP_REFERER'])
 
 
