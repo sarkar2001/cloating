@@ -18,7 +18,7 @@ def AddtoCart(request, id):
     if prod:
         if user.is_authenticated:
             try:
-                pass
+                cart = Cart.objects.get(Q(user=user))
 
     return redirect(request.META['HTTP_REFERER'])
 
