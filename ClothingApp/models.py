@@ -33,6 +33,8 @@ class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+    size = models.CharField(max_length=5, blank=True, null=True)
+
 
     def __str__(self):
         return self.user.username
