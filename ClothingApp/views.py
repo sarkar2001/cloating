@@ -12,7 +12,7 @@ def single_product(request, id):
     single_product = PRODUCT.objects.get(id=id)
     return render(request, 'Shop/single_product.html', locals())
 
-def AddtoCart(request, id):
+def addtocart(request, id):
     prod= PRODUCT.objects.get(id=id)
     user = request.user
     if prod:
@@ -21,6 +21,7 @@ def AddtoCart(request, id):
                 cart = Cart.objects.get (Q(user=user) & Q(product=prod))
                 if cart:
                     cart.quantity += 1
+                    print('qwe',cart.quantity)
                     cart.save()
                     return redirect(request.META['HTTP_REFERER'])
             except:
@@ -32,6 +33,7 @@ def AddtoCart(request, id):
         else:
             return redirect('Log_in')
         return redirect(request.META['HTTP_REFERER'])
+
 
 
 

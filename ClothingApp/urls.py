@@ -4,7 +4,7 @@ from.views import *
 urlpatterns = [
     path('product/<int:id>/', product, name='product'),
     path('single_product/<int:id>/', single_product, name='single_product'),
-    path('AddtoCart/<int:id>/', AddtoCart, name='AddtoCart'),
+    path('addtocart/<int:id>/', addtocart, name='addtocart'),
 
 
 
