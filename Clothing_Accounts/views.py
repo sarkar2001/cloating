@@ -55,6 +55,7 @@ def log_out(request):
 
 def home(request):
     catg= CATEGORIES.objects.all()
+    length= len(Cart.objects.filter (user = request.user))
     return render(request, 'home.html', locals())
 
 
