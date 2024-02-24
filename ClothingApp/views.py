@@ -18,7 +18,7 @@ def AddtoCart(request, id):
     if prod:
         if user.is_authenticated:
             try:
-                cart = Cart.objects.get (Q(user=user)) & (Q(product=prod))
+                cart = Cart.objects.get (Q(user=user) & Q(product=prod))
                 if cart:
                     cart.quantity += 1
                     cart.save()

@@ -48,7 +48,6 @@ def Log_in(request):
      return render(request, 'Accounts/Log_in.html')
 
 def log_out(request):
-     logout(request)
      messages.warning(request, "User Logged Out!")
      return redirect('Log_in')
 
