@@ -21,7 +21,7 @@ def addtocart(request, id):
                 cart = Cart.objects.get (Q(user=user) & Q(product=prod))
                 if cart:
                     cart.quantity += 1
-                    print('qwe',cart.quantity)
+                    # print('quantity is',cart.quantity)
                     cart.save()
                     return redirect(request.META['HTTP_REFERER'])
             except:
