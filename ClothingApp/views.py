@@ -28,8 +28,6 @@ def addtocart(request, id):
                     new_cart = Cart.objects.create (user=user,product=prod )
                     new_cart.save()
                     return redirect(request.META['HTTP_REFERER'])
-
-
         else:
             return redirect('Log_in')
         return redirect(request.META['HTTP_REFERER'])
