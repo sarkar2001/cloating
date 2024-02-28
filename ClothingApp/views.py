@@ -34,7 +34,11 @@ def addtocart(request, id):
 
 
 
+def remove_cart(request, id):
+    remove_cart = Cart.objects.get( id = id )
+    remove_cart.delete()
 
+    return redirect(request.META['HTTP_REFERER'])
 
 
 

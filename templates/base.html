@@ -5,7 +5,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>{% block title %} {% endblock title %}</title>
+        <title>{% block title %} Base {% endblock title %}</title>
          <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
@@ -44,6 +44,7 @@
         <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
     </head>
     <body>
+
         <!-- Begin Body Wrapper -->
         <div class="body-wrapper">
             <!-- Begin Header Area -->
@@ -217,31 +218,33 @@
                                         <li class="hm-minicart">
                                             <div class="hm-minicart-trigger">
                                                 <span class="item-icon"></span>
-                                                <span class="item-text">£80.00
+                                                <span class="item-text">{{subtotal}} Tk
                                                     <span class="cart-item-count">{{ length }}</span>
                                                 </span>
                                             </div>
                                             <span></span>
                                             <div class="minicart">
+
                                                 <ul class="minicart-product-list">
 
-                                                    {% for i in cart_details %}
+
                                                     <li>
+                                                        {% for i in cart_details %}
                                                         <a href="single-product.html" class="minicart-product-image">
                                                             <img src="{{i.product.image.url}}" alt="cart products">
                                                         </a>
                                                         <div class="minicart-product-details">
                                                             <h6><a href="single-product.html">{{i.product.title}}</a></h6>
-                                                            <span>{{i.product.price}} x {{i.quantity}}</span>
+                                                            <span>{{i.product.price}} Tk x {{i.quantity}} pcs.</span>
                                                         </div>
-                                                        <button class="close">
-                                                            <i class="fa fa-close"></i>
+                                                        <button class="close" title="Remove">
+                                                            <a href=" {{ url 'remove_cart' i.id }}"><i class="fa fa-close"></i></a>
                                                         </button>
                                                     </li>
-                                                    {% endfor %}
-
+                                                        {% endfor %}
                                                 </ul>
-                                                <p class="minicart-total">SUBTOTAL: <span>£80.00</span></p>
+
+                                                <p class="minicart-total">SUBTOTAL: <span>{{subtotal}} Tk</span></p>
                                                 <div class="minicart-button">
                                                     <a href="checkout.html" class="li-button li-button-dark li-button-fullwidth li-button-sm">
                                                         <span>View Full Cart</span>
@@ -765,6 +768,7 @@
             <!-- Quick View | Modal Area End Here -->
         </div>
         <!-- Body Wrapper End Here -->
+
         <!-- jQuery-V1.12.4 -->
         <script src="{ % static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
         <!-- Popper js -->

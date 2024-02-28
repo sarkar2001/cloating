@@ -57,7 +57,17 @@ def home(request):
     catg = CATEGORIES.objects.all()
     length = len(Cart.objects.filter (user = request.user))
     cart_details = Cart.objects.filter (user = request.user) [:2]
+    all_cart = Cart.objects.filter (user = request.user)
+    subtotal = 0
+
+    for i in  all_cart :
+        a = (i.product.price) * (i.quantity)
+        subtotal += a
+
+
     return render(request, 'home.html', locals())
+
+
 
 
 
