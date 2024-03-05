@@ -6,6 +6,23 @@ from django.contrib.auth import authenticate,login,logout
 from ClothingApp.models import *
 
 
+def home(request):
+    catg = CATEGORIES.objects.all()
+    user = request.user
+    if user.is_authenticated:
+        length = len(Cart.objects.filter ())
+        cart_details = Cart.objects.filter () [:2]
+        all_cart = Cart.objects.filter ()
+        subtotal = 0
+
+        for i in  all_cart :
+            a = (i.product.price) * (i.quantity)
+            subtotal += a
+
+
+    return render(request, 'home.html', locals())
+
+
 def Registration(request):
      if request.method == 'POST':
         name = request.POST.get('username')
@@ -48,24 +65,16 @@ def Log_in(request):
      return render(request, 'Accounts/Log_in.html')
 
 def log_out(request):
-     messages.warning(request, "User Logged Out!")
-     return redirect('Log_in')
+    logout(request)
+    messages.warning(request, "User Logged Out!")
+    return redirect('Log_in')
+
+
+#logout er kaj done bt cart er ta baki
 
 
 
-def home(request):
-    catg = CATEGORIES.objects.all()
-    length = len(Cart.objects.filter (user = request.user))
-    cart_details = Cart.objects.filter (user = request.user) [:2]
-    all_cart = Cart.objects.filter (user = request.user)
-    subtotal = 0
 
-    for i in  all_cart :
-        a = (i.product.price) * (i.quantity)
-        subtotal += a
-
-
-    return render(request, 'home.html', locals())
 
 
 
