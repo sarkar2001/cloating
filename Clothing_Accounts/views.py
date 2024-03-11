@@ -7,7 +7,8 @@ from ClothingApp.models import *
 
 
 def home(request):
-    catg = CATEGORIES.objects.all()
+    catg = Category.objects.all()
+
     user = request.user
     if user.is_authenticated:
         length = len(Cart.objects.filter ())
