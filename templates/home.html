@@ -22,10 +22,21 @@
                                 <div class="category-heading">
                                     <h2 class="categories-toggle"><span>categories</span></h2>
                                 </div>
-                                <div id="cate-toggle" class="category-menu-list">
+                               <div id="cate-toggle" class="category-menu-list">
                                     <ul>
-                                        {% for i in catg %}
-                                        <li ><a href="{% url 'product' i.id  %}">{{i.title}}</a>
+                                        {% for i in category %}
+                                        <li>
+                                            <a href="{% url 'product' i.id %}">{{ i.title }}</a>
+                                            <!-- Check if subcategories exist -->
+
+                                            <ul>
+                                                {% for i in subcategory %}
+                                                <li>
+                                                    <a href="{% url 'product' i.id %}">{{ i.name}}</a>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+
                                         </li>
                                         {% endfor %}
                                         <li class="rx-parent">
@@ -34,6 +45,7 @@
                                         </li>
                                     </ul>
                                 </div>
+
                             </div>
                             <!--Category Menu End-->
                         </div>
@@ -1026,7 +1038,7 @@
                                     <span>Kid's Fashion</span>
                                 </h2>
                                 <ul class="li-sub-category-list">
-                                    <li class="active"><a href="shop-left-sidebar.html">Formal Wear</a></li>
+                                    <li class="active"><a href="">Formal Wear</a></li>
                                     <li><a href="shop-left-sidebar.html">Ethnic Wear</a></li>
                                 </ul>
                             </div>

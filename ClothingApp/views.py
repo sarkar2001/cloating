@@ -40,7 +40,7 @@ def remove_cart(request, id):
 
     return redirect(request.META['HTTP_REFERER'])
 
-#new
+
 def cart(request):
     user = request.user
     if user.is_authenticated:
