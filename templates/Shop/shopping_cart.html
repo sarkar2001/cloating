@@ -64,12 +64,19 @@
                 </div>
                 <div class="row">
                     <div class="col-md-5 ml-auto">
-                        <form action="" method="">
-
+                        <form action="" method="POST">
+                            {% csrf_token %}
                             <div class="cart-page-total">
                                 <h2>Cart totals</h2>
-
-
+                                {% if messages %}
+                                <ul class="messages">
+                                    {% for message in messages %}
+                                    <li style="color:red;padding:0px;">
+                                    {{ message}}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
                                 <div class="form-check form-check-inline">
                                     <input style="height: 15px; width: 15px;" class="form-check-input" type="checkbox"
                                            name="deliver" id="inlineCheckbox1" value="1">
@@ -89,7 +96,7 @@
                                 <br>
 
                                 <button type="submit" class="btn" id="mc-submit" style="color:black;">
-
+                                    Proceed to checkout
                                 </button>
                             </div>
                         </form>
