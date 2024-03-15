@@ -28,15 +28,15 @@
                                         <li>
                                             <a href="{% url 'product' i.id %}">{{ i.title }}</a>
                                             <!-- Check if subcategories exist -->
+                                               {% for b in i.subcategory_set.all %}
+                                                    <ul>
 
-                                            <ul>
-                                                {% for i in subcategory %}
-                                                <li>
-                                                    <a href="{% url 'product' i.id %}">{{ i.name}}</a>
-                                                </li>
-                                                {% endfor %}
-                                            </ul>
+                                                        <li>
+                                                            <a href="{% url 'product' b.id %}">{{ b.name}}</a>
+                                                        </li>
 
+                                                    </ul>
+                                                 {% endfor %}
                                         </li>
                                         {% endfor %}
                                         <li class="rx-parent">
