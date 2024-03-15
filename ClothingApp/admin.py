@@ -5,7 +5,7 @@ from .models import *
 # admin.site.register(Category)
 # admin.site.register(SubCategory)
 # admin.site.register(PRODUCT)
-admin.site.register(Cart)
+# admin.site.register(Cart)
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -18,3 +18,7 @@ class SubCategoryAdmin(admin.ModelAdmin):
 @admin.register(PRODUCT)
 class PRODUCTAdmin(admin.ModelAdmin):
     list_display = ['id','title','category','subcategory', 'condition','price']
+
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_display = ['id','user','product','quantity']
