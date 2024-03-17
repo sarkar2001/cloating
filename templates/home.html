@@ -24,21 +24,27 @@
                                 </div>
                                <div id="cate-toggle" class="category-menu-list">
                                     <ul>
-                                        {% for i in category %}
+                                       {% for i in category %}
                                         <li>
                                             <a href="{% url 'product' i.id %}">{{ i.title }}</a>
                                             <!-- Check if subcategories exist -->
-                                               {% for b in i.subcategory_set.all %}
-                                                    <ul>
-
-                                                        <li>
-                                                            <a href="{% url 'product' b.id %}">{{ b.name}}</a>
-                                                        </li>
-
-                                                    </ul>
-                                                 {% endfor %}
+                                            {% for b in i.subcategory_set.all %}
+                                                <ul> <!-- Move the <ul> tag here -->
+                                                    <li>
+                                                        <a href="{% url 'product' b.id %}">{{ b.name}}</a>
+                                                        {% for e in b.subsubcategory_set.all %}
+                                                            <ul>
+                                                                <li>
+                                                                    <a href="{% url 'product' e.id %}">{{ e.name}}</a>
+                                                                </li>
+                                                            </ul>
+                                                        {% endfor %}
+                                                    </li>
+                                                </ul>
+                                            {% endfor %}
                                         </li>
-                                        {% endfor %}
+                                    {% endfor %}
+
                                         <li class="rx-parent">
                                             <a class="rx-default">More Categories</a>
                                             <a class="rx-show">Less Categories</a>
