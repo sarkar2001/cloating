@@ -11,9 +11,16 @@ class Category(models.Model):
         return self.title
 
 class SubCategory(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=15)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
 
+
+    def __str__(self):
+        return self.name
+
+class Subsubcategory(models.Model):
+    name = models.CharField(max_length=15)
+    subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -27,6 +34,7 @@ class PRODUCT(models.Model):
     title=  models.CharField(max_length=15)
     category= models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True, blank=True)
+    subsubcategory = models.ForeignKey(Subsubcategory, on_delete=models.CASCADE, null=True, blank=True)
     image= models.ImageField(upload_to='PRODUCT_PIC/')
     condition= models. CharField(choices=CONDITION, max_length=3)
     price= models.DecimalField(max_digits=7, decimal_places=2)

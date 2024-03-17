@@ -29,7 +29,7 @@
                                             <a href="{% url 'product' i.id %}">{{ i.title }}</a>
                                             <!-- Check if subcategories exist -->
                                             {% for b in i.subcategory_set.all %}
-                                                <ul> <!-- Move the <ul> tag here -->
+                                                <ul>
                                                     <li>
                                                         <a href="{% url 'product' b.id %}">{{ b.name}}</a>
                                                         {% for e in b.subsubcategory_set.all %}
