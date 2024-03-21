@@ -4,11 +4,13 @@ from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth import authenticate,login,logout
 from ClothingApp.models import *
+from .models import SliderBanner
 
 
 def home(request):
     category = Category.objects.all()
     subcategory = SubCategory.objects.all()
+    slides = SliderBanner.objects.all()
     user = request.user
     if user.is_authenticated:
         length = len(Cart.objects.filter ())
