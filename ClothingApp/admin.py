@@ -17,7 +17,7 @@ class SubCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(PRODUCT)
 class PRODUCTAdmin(admin.ModelAdmin):
-    list_display = ['id','title','category','subcategory','subsubcategory', 'condition','price']
+    list_display = ['id','title','category','subcategory','subsubcategory', 'condition','price','is_hot_deal']
 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
