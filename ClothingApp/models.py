@@ -38,6 +38,8 @@ class PRODUCT(models.Model):
     condition= models. CharField(choices=CONDITION, max_length=3)
     price= models.DecimalField(max_digits=7, decimal_places=2)
     description= models.TextField(max_length=250)
+    is_hot_deal = models.BooleanField(default=False)
+    is_trending = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
