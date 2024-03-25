@@ -21,6 +21,7 @@ def product(request, id):
 
 def single_product(request, id):
     user = request.user
+    products = PRODUCT.objects.all()
     if user.is_authenticated:
         length = len(Cart.objects.filter(user=user))
         cart_details = Cart.objects.filter(user=user)[:2]
