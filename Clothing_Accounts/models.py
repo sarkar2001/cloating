@@ -12,3 +12,15 @@ class SliderBanner(models.Model):
 
     def __str__(self):
         return self.title
+
+
+
+
+class AboutUs(models.Model):
+    title = models.CharField(max_length=50,null=True)
+    description = models.TextField()
+    image = models.ImageField(upload_to='aboutimage/',null=True)
+
+
+    def __str__(self):
+        return self.title
