@@ -209,14 +209,7 @@
                         <!-- Begin Header Middle Right Area -->
                         <div class="header-middle-right">
                             <ul class="hm-menu">
-                                <!-- Begin Header Middle Wishlist Area -->
-                                <li class="hm-wishlist">
-                                    <a href="wishlist.html">
-                                        <span class="cart-item-count wishlist-item-count"></span>
-                                        <i class="fa fa-heart-o"></i>
-                                    </a>
-                                </li>
-                                <!-- Header Middle Wishlist Area End Here -->
+
                                 <!-- Begin Header Mini Cart Area -->
                                 <li class="hm-minicart">
                                     <div class="hm-minicart-trigger">
@@ -286,8 +279,8 @@
                                                 View</a>
                                             </li>
                                         </ul>
-                                    </li>
-                                    <li><a href="">About Us</a></li>
+
+                                    <li><a href="{% url 'about' %}">About Us</a></li>
                                     <li style="margin-left:10px;"><a href="shop-left-sidebar.html">Smartwatch</a></li>
 
                                     {% if user.is_authenticated %}
@@ -325,14 +318,13 @@
                         <div class="footer-logo">
                             <img src="{% static 'images/menu/logo/1.jpg' %}" alt="Footer Logo">
                             <p class="info">
-                                We are a team of designers and developers that create high quality HTML Template &
-                                Woocommerce, Shopify Theme.
+                                We are a team of designers and developers that create high quality websites.
                             </p>
                         </div>
                         <ul class="des">
                             <li>
                                 <span>Address: </span>
-                                6688Princess Road, London, Greater London BAS 23JK, UK
+                                House:80, Circular road, Malibag, Dhaka
                             </li>
                             <li>
                                 <span>Phone: </span>
@@ -340,7 +332,7 @@
                             </li>
                             <li>
                                 <span>Email: </span>
-                                <a href="mailto://info@yourdomain.com">info@yourdomain.com</a>
+                                <a href="info@emanager.com">info@emanager.com</a>
                             </li>
                         </ul>
                     </div>
@@ -364,8 +356,7 @@
                             <h3 class="footer-block-title">Our company</h3>
                             <ul>
                                 <li><a href="#">Delivery</a></li>
-                                <li><a href="#">Legal Notice</a></li>
-                                <li><a href="#">About us</a></li>
+                                <li><a href="{% url 'about' %}">About us</a></li>
                                 <li><a href="#">Contact us</a></li>
                             </ul>
                         </div>
@@ -394,7 +385,7 @@
                                     </a>
                                 </li>
                                 <li class="facebook">
-                                    <a href="https://www.facebook.com/" data-toggle="tooltip" target="_blank"
+                                    <a href="https://www.facebook.com/eManagerit" data-toggle="tooltip" target="_blank"
                                        title="Facebook">
                                         <i class="fa fa-facebook"></i>
                                     </a>
@@ -442,29 +433,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <!-- Begin Footer Links Area -->
-                    <div class="footer-links">
-                        <ul>
-                            <li><a href="#">Online Shopping</a></li>
-                            <li><a href="#">Promotions</a></li>
-                            <li><a href="#">My Orders</a></li>
-                            <li><a href="#">Help</a></li>
-                            <li><a href="#">Customer Service</a></li>
-                            <li><a href="#">Support</a></li>
-                            <li><a href="#">Most Populars</a></li>
-                            <li><a href="#">New Arrivals</a></li>
-                            <li><a href="#">Special Products</a></li>
-                            <li><a href="#">Manufacturers</a></li>
-                            <li><a href="#">Our Stores</a></li>
-                            <li><a href="#">Shipping</a></li>
-                            <li><a href="#">Payments</a></li>
-                            <li><a href="#">Warantee</a></li>
-                            <li><a href="#">Refunds</a></li>
-                            <li><a href="#">Checkout</a></li>
-                            <li><a href="#">Discount</a></li>
-                            <li><a href="#">Refunds</a></li>
-                            <li><a href="#">Policy Shipping</a></li>
-                        </ul>
-                    </div>
+
                     <!-- Footer Links Area End Here -->
                     <!-- Begin Footer Payment Area -->
                     <div class="copyright text-center">
@@ -475,7 +444,7 @@
                     <!-- Footer Payment Area End Here -->
                     <!-- Begin Copyright Area -->
                     <div class="copyright text-center pt-25">
-                        <span><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></span>
+                        <span><a target="_blank" href="https://www.templateshub.net">Ecommerce Website</a></span>
                     </div>
                     <!-- Copyright Area End Here -->
                 </div>
