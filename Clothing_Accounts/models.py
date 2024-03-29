@@ -24,3 +24,11 @@ class AboutUs(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Brand(models.Model):
+    name = models.CharField(max_length=50)
+    logo = models.ImageField(upload_to='brand_logos/')
+
+    def __str__(self):
+        return self.name
