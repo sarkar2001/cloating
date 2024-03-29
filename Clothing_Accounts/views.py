@@ -4,13 +4,15 @@ from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth import authenticate,login,logout
 from ClothingApp.models import *
-from .models import SliderBanner
+from .models import *
 
 
 def home(request):
     category = Category.objects.all()
     subcategory = SubCategory.objects.all()
     slides = SliderBanner.objects.all()
+    products = PRODUCT.objects.all()
+    brands = Brand.objects.all()
     user = request.user
     if user.is_authenticated:
         length = len(Cart.objects.filter ())
@@ -73,7 +75,13 @@ def log_out(request):
     return redirect('Log_in')
 
 
-#logout er kaj done bt cart er ta baki
+def aboutus(request):
+    about= AboutUs.objects.all()
+    context = {
+        'about' : about,
+    }
+    return render(request, 'aboutus.html', context)
+
 
 
 
