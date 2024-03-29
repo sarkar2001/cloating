@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} contact us {% endblock title%}
+{% block body %}
+
+
+
+
+            <!-- Begin Li's Breadcrumb Area -->
+            <div class="breadcrumb-area">
+                <div class="container">
+                    <div class="breadcrumb-content">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li class="active">About Us</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Li's Breadcrumb Area End Here -->
+            <!-- about wrapper start -->
+            <div class="about-us-wrapper pt-60 pb-40">
+                <div class="container">
+                    {% for abouts in about %}
+                    <div class="row">
+                        <!-- About Text Start -->
+                        <div class="col-lg-6 order-last order-lg-first">
+                            <div class="about-text-wrap">
+                                <h2>{{abouts.title}}</h2>
+                                <p>{{abouts.description|striptags }}</p>
+                            </div>
+                        </div>
+                        <!-- About Text End -->
+                        <!-- About Image Start -->
+                        <div class="col-lg-5 col-md-10">
+                            <div class="about-image-wrap">
+                                <img class="img-full" src="{{abouts.image.url}}" alt="About Us" />
+                            </div>
+                        </div>
+                        <!-- About Image End -->
+                    </div>
+                      {% endfor %}
+                </div>
+            </div>
+            <!-- about wrapper end -->
+
+
+{% endblock body %}
