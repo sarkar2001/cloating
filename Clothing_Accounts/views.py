@@ -13,6 +13,7 @@ def home(request):
     slides = SliderBanner.objects.all()
     products = PRODUCT.objects.all()
     brands = Brand.objects.all()
+
     user = request.user
     if user.is_authenticated:
         length = len(Cart.objects.filter ())
