@@ -26,18 +26,18 @@
                             <div class="product-details-view-content sp-normal-content pt-60">
                                 <div class="product-info">
                                     <h2>{{single_product.title}}</h2>
-                                    <span class="product-details-ref">Reference: demo_15</span>
-                                    <div class="rating-box pt-20">
-                                        <ul class="rating rating-with-review-item">
-                                            <li><i class="fa fa-star-o"></i></li>
-                                            <li><i class="fa fa-star-o"></i></li>
-                                            <li><i class="fa fa-star-o"></i></li>
-                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                            <li class="review-item"><a href="#">Read Review</a></li>
-                                            <li class="review-item"><a href="#">Write Review</a></li>
-                                        </ul>
-                                    </div>
+                                    <span class="product-details-ref"></span>
+<!--                                    <div class="rating-box pt-20">-->
+<!--                                        <ul class="rating rating-with-review-item">-->
+<!--                                            <li><i class="fa fa-star-o"></i></li>-->
+<!--                                            <li><i class="fa fa-star-o"></i></li>-->
+<!--                                            <li><i class="fa fa-star-o"></i></li>-->
+<!--                                            <li class="no-star"><i class="fa fa-star-o"></i></li>-->
+<!--                                            <li class="no-star"><i class="fa fa-star-o"></i></li>-->
+<!--                                            <li class="review-item"><a href="#">Read Review</a></li>-->
+<!--                                            <li class="review-item"><a href="#">Write Review</a></li>-->
+<!--                                        </ul>-->
+<!--                                    </div>-->
                                     <div class="price-box pt-20">
                                         <span class="new-price new-price-2">{{single_product.price}}</span>
                                     </div>
@@ -74,8 +74,11 @@
                         </form>
                     </div>
 
+
+
                                     <div class="single-add-to-cart">
                                         <form action="{% url 'addtocart' single_product.id %}" class="cart-quantity">
+
                                             <div class="quantity">
                                                 <label>Quantity</label>
                                                 <div class="cart-plus-minus">
@@ -87,6 +90,7 @@
                                             <button class="add-to-cart" type="submit">Add to cart</button>
                                         </form>
                                     </div>
+
                                     <div class="product-additional-info">
                                         <div class="product-social-sharing">
                                             <ul>
