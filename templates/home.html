@@ -22,6 +22,8 @@
                                 <div class="category-heading">
                                     <h2 class="categories-toggle"><span>categories</span></h2>
                                 </div>
+
+                                 <!-- Category Area -->
                                <div id="cate-toggle" class="category-menu-list">
                                     <ul>
                                        {% for i in category %}
@@ -56,8 +58,9 @@
                             <!--Category Menu End-->
                         </div>
                         <!-- Category Menu Area End Here -->
-                        <!-- Begin Slider Area -->
 
+
+                        <!-- Begin Slider Area -->
                                 <div class="col-lg-9">
                 <div class="slider-area pt-sm-30 pt-xs-30">
                     <div class="slider-active owl-carousel">
@@ -91,9 +94,9 @@
                         <!-- Slider Area End Here -->
 
 
-            <!-- Slider With Category Menu Area End Here -->
-            <!-- Begin Li's Static Banner Area -->
-            <div class="li-static-banner pt-20 pt-sm-30 pt-xs-30">
+
+         <!-- Banner Area -->
+        <div class="li-static-banner pt-20 pt-sm-30 pt-xs-30">
                 <div class="container">
                     <div class="row">
                         {% for i in slides %}
@@ -110,9 +113,10 @@
                     </div>
                 </div>
             </div>
-            <!-- Li's Static Banner Area End Here -->
-            <!-- Begin Li's Special Product Area -->
-           <section class="product-area li-laptop-product Special-product pt-60 pb-45">
+         <!-- Banner Area End Here -->
+
+         <!-- Begin Hotdeal Product Area -->
+        <section class="product-area li-laptop-product Special-product pt-60 pb-45">
                 <div class="container">
                     <div class="row">
                         <!-- Begin Li's Section Area -->
@@ -173,10 +177,10 @@
                     </div>
                 </div>
             </section>
-            <!-- Li's Special Product Area End Here -->
+         <!-- Hotdeal Product Area End Here -->
 
-            <!-- Begin Li's Laptops Product | Home V2 Area -->
-            <section class="product-area li-laptop-product li-laptop-product-2 pb-45">
+        <!-- Category wise product view -->
+        <section class="product-area li-laptop-product li-laptop-product-2 pb-45">
                 <div class="container">
                     <div class="row">
                          {% for i in category %}
@@ -409,7 +413,7 @@
                     </div>
                 </div>
             </section>
-            <!-- Li's Laptops Product | Home V2 Area End Here -->
+        <!-- Category wise product view end -->
 
         <!-- Brands -->
         <section class="product-area li-laptop-product Special-product pt-60 pb-45">
@@ -445,9 +449,10 @@
                     </div>
                 </div>
             </section>
+        <!-- Brands end here-->
 
-
-         <div class="li-static-banner pt-20 pt-sm-30 pt-xs-30">
+        <!-- Banner -->
+        <div class="li-static-banner pt-20 pt-sm-30 pt-xs-30">
                         <div class="container">
                             <div class="row">
                                 {% for i in slides %}
@@ -464,9 +469,9 @@
                             </div>
                         </div>
                     </div>
+         <!-- Banner end here-->
 
-            <!-- Li's Smart Phone Product Area End Here -->
-            <!-- Begin Li's Trending Product | Home V2 Area -->
+        <!-- Begin Trending Product | Home V2 Area -->
         <section class="product-area li-trending-product li-trending-product-2 pt-60 pb-45">
                 <div class="container">
                     <div class="row">
@@ -535,6 +540,7 @@
                     </div>
                 </div>
             </section>
+         <!-- Trending Product end here -->
 
 
 {% endblock body %}
