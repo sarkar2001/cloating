@@ -204,7 +204,7 @@
                                                 <!-- single-product-wrap start -->
                                                 <div class="single-product-wrap">
                                                     <div class="product-image">
-                                                        <a href="single-product.html">
+                                                        <a href="{% url 'single_product' b.id %}">
                                                             <img src="{{b.image.url}}" alt="Li's Product Image">
                                                         </a>
                                                         <span class="sticker">{{b.condition}}</span>
@@ -429,12 +429,12 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="#">
-                                                    <img src="{{i.logo.url}}" alt="Li's Product Image">
+                                                <a href="{% url 'brand' i.id %}">
+                                                    <img style="height:200px,width:200px" src="{{i.logo.url}}" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">{{i.logo}}</span>
                                             </div>
-                                            <p><a class="product_name" href="#">{{i.name}}</a>
+                                            <p><a class="product_name" href="{% url 'brand' i.id %}">{{i.name}}</a>
                                             </p>
                                         </div>
                                         <!-- single-product-wrap end -->
