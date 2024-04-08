@@ -108,4 +108,5 @@ def minus_cart(request, id):
 
 
 
-
+def brand(request,id):
+    return render(request, 'Shop/branding_page.html', locals())
