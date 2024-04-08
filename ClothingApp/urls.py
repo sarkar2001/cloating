@@ -9,6 +9,7 @@ urlpatterns = [
     path('cart/', cart, name='cart'),
     path('minus_cart/<int:id>/', minus_cart, name='minus_cart'),
     path('plus_cart/<int:id>/', plus_cart, name='plus_cart'),
+    path('brand/<int:id>/', brand, name='brand'),
 
 
 
