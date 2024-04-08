@@ -32,3 +32,16 @@ class Brand(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
+class ContactUs(models.Model):
+    title = models.CharField(max_length=500, null=True)
+    address = models.CharField(max_length=200)
+    mobile = models.CharField(max_length=20)
+    hotline = models.CharField(max_length=20)
+    email = models.CharField(max_length=20)
+    support_mail = models.EmailField(max_length=30)
+
+    def __str__(self):
+        return f"{self.email}"
