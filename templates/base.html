@@ -271,20 +271,12 @@
                                     <li class="dropdown-holder"><a href="{% url 'home' %}">Home</a>
                                     </li>
                                     <li class="megamenu-holder"><a href="#">Shop</a>
-
                                     </li>
-                                    <li class="dropdown-holder"><a href="#">Blog</a>
-                                        <ul class="hb-dropdown">
-                                            <li class="sub-dropdown-holder"><a href="blog-left-sidebar.html">Blog Grid
-                                                View</a>
-                                            </li>
-                                        </ul>
 
                                     <li><a href="{% url 'about' %}">About Us</a></li>
-                                    <li style="margin-left:10px;"><a href="shop-left-sidebar.html">Smartwatch</a></li>
-
+                                    <li><a href="{% url 'contact' %}">Contact Us</a></li>
                                     {% if user.is_authenticated %}
-                                    <li><a href="shop-left-sidebar.html">{{user.username}}</a></li>
+                                    <li style="margin-left:10px;"><a href="shop-left-sidebar.html">{{user.username}}</a></li>
                                     <li><a href="{% url 'log_out' %}">Logout</a></li>
                                     {% else %}
                                     <li><a href="{% url 'Log_in' %}">Login</a></li>
@@ -345,7 +337,7 @@
                                 <li><a href="#">Prices drop</a></li>
                                 <li><a href="#">New products</a></li>
                                 <li><a href="#">Best sales</a></li>
-                                <li><a href="#">Contact us</a></li>
+                                <li><a href="{% url 'contact' %}">Contact us</a></li>
                             </ul>
                         </div>
                     </div>
