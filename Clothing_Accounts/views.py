@@ -85,10 +85,30 @@ def aboutus(request):
 
 
 
+def contact(request):
+    user = request.user
+    contact_us = ContactUs.objects.all()
+    if user.is_authenticated:
+        if request.method == 'POST' or request.method == 'post':
+            user = user
+            name = request.POST.get('name')
+            email = request.POST.get('email')
+            subject = request.POST.get('subject')
+            massage = request.POST.get('massage')
 
-
-
-
+            obj = UserMassage.objects.create(user=user,
+                                             name=name,
+                                             email=email,
+                                             subject=subject,
+                                             massage=massage,
+                                             )
+            obj.save()
+            messages.success(request, f'Successfully Done')
+            return redirect(request.META.get('HTTP_REFERER'))
+        context = {
+            'contact_us': contact_us,
+        }
+    return render(request, 'contact.html', locals())
 
 
 
