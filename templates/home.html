@@ -3,7 +3,7 @@
 {% block title %} home {% endblock title%}
 {% block body %}
 
-            <div class="slider-with-banner">
+         <div class="slider-with-banner">
                 <div class="container">
                     {% if messages %}
                     <ul class="messages">
@@ -62,7 +62,7 @@
 
                         <!-- Begin Slider Area -->
                                 <div class="col-lg-9">
-                <div class="slider-area pt-sm-30 pt-xs-30">
+                <div class="slider-area pt-sm-30 pt-xs-0 pb-xs-100 ">
                     <div class="slider-active owl-carousel">
                         {% for i in slides %}
                         <!-- Begin Single Slide Area -->
@@ -91,8 +91,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Slider Area End Here -->
-
+         <!-- Slider Area End Here -->
 
 
          <!-- Banner Area -->
@@ -115,7 +114,7 @@
             </div>
          <!-- Banner Area End Here -->
 
-         <!-- Begin Hotdeal Product Area -->
+         <!-- Hotdeal Product Area -->
         <section class="product-area li-laptop-product Special-product pt-60 pb-45">
                 <div class="container">
                     <div class="row">
@@ -430,7 +429,7 @@
                                         <div class="single-product-wrap">
                                             <div class="product-image">
                                                 <a href="{% url 'brand' i.id %}">
-                                                    <img style="height:200px,width:200px" src="{{i.logo.url}}" alt="Li's Product Image">
+                                                    <<img style="height:200px,width:200px" src="{{i.logo.url}}" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">{{i.logo}}</span>
                                             </div>
@@ -469,7 +468,7 @@
                             </div>
                         </div>
                     </div>
-         <!-- Banner end here-->
+         <!--Banner end here-->
 
         <!-- Begin Trending Product | Home V2 Area -->
         <section class="product-area li-trending-product li-trending-product-2 pt-60 pb-45">
@@ -540,7 +539,7 @@
                     </div>
                 </div>
             </section>
-         <!-- Trending Product end here -->
+         <!--Trending Product end here -->
 
 
 {% endblock body %}
