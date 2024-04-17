@@ -276,7 +276,7 @@
                                     <li><a href="{% url 'about' %}">About Us</a></li>
                                     <li><a href="{% url 'contact' %}">Contact Us</a></li>
                                     {% if user.is_authenticated %}
-                                    <li style="margin-left:10px;"><a href="shop-left-sidebar.html">{{user.username}}</a></li>
+                                    <li style="margin-left:10px;"><a href="{% url 'home' %}">{{user.username}}</a></li>
                                     <li><a href="{% url 'log_out' %}">Logout</a></li>
                                     {% else %}
                                     <li><a href="{% url 'Log_in' %}">Login</a></li>
