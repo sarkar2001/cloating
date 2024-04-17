@@ -134,7 +134,7 @@
                                         <div class="single-product-wrap">
                                             <div class="product-image">
                                                 <a href="{% url 'single_product' i.id %}">
-                                                    <img src="{{i.image.url}}" alt="Li's Product Image">
+                                                    <img style="height:250px;width:200px"  src="{{i.image1.url}}" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">{{i.condition}}</span>
                                             </div>
@@ -155,11 +155,11 @@
                                                 </div>
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                                        <li class="add-cart active"><a href="{% url 'single_product' i.id %}">Add to cart</a></li>
 
-                                                        <li style=""><a href="#" title="quick view" class="quick-view-btn"
-                                                               data-toggle="modal" data-target="#exampleModalCenter"><i
-                                                                class="fa fa-eye"></i></a></li>
+<!--                                                        <li style=""><a href="#" title="quick view" class="quick-view-btn"-->
+<!--                                                               data-toggle="modal" data-target="#exampleModalCenter"><i-->
+<!--                                                                class="fa fa-eye"></i></a></li>-->
                                                     </ul>
                                                 </div>
                                             </div>
@@ -204,7 +204,7 @@
                                                 <div class="single-product-wrap">
                                                     <div class="product-image">
                                                         <a href="{% url 'single_product' b.id %}">
-                                                            <img src="{{b.image.url}}" alt="Li's Product Image">
+                                                            <img style="height:250px;width:200px" src="{{b.image1.url}}" alt="Li's Product Image">
                                                         </a>
                                                         <span class="sticker">{{b.condition}}</span>
                                                     </div>
@@ -222,9 +222,9 @@
                                                         </div>
                                                         <div class="add-actions">
                                                             <ul class="add-actions-link">
-                                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                                <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                                <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                                                <li class="add-cart active"><a href="{% url 'single_product' b.id %}">Add to cart</a></li>
+<!--                                                                <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>-->
+<!--                                                                <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>-->
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -494,7 +494,7 @@
                                                 <div class="single-product-wrap">
                                                     <div class="product-image">
                                                         <a href="{% url 'single_product' i.id %}">
-                                                            <img src="{{i.image.url}}" alt="Li's Product Image">
+                                                            <img style="height:250px;width:200px" src="{{i.image1.url}}" alt="Li's Product Image">
                                                         </a>
                                                         <span class="sticker">{{i.condition}}</span>
                                                     </div>
@@ -513,9 +513,9 @@
                                                         </div>
                                                         <div class="add-actions">
                                                             <ul class="add-actions-link">
-                                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                                                <li class="add-cart active"><a href="{% url 'single_product' i.id %}">Add to cart</a></li>
 
-                                                                <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+<!--                                                                <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>-->
                                                             </ul>
                                                         </div>
                                                     </div>
