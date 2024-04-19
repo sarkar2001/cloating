@@ -13,7 +13,7 @@
                             <div class="product-details-left">
                                 <div class="product-details-images slider-navigation-1">
                                     <div class="lg-image">
-                                        <img src="{{ single_product.image.url}}" alt="product image">
+                                        <img src="{{ single_product.image1.url}}" alt="product image">
                                     </div>
 
                                 </div>
@@ -73,9 +73,9 @@
                             </div>
                         </form>
                     </div>
-
-
-
+                                    {% if single_product.is_out_of_stock %}
+                                         <p style="color: red;">Out of Stock</p>
+                                    {% else %}
                                     <div class="single-add-to-cart">
                                         <form action="{% url 'addtocart' single_product.id %}" class="cart-quantity">
 
@@ -88,8 +88,10 @@
                                                 </div>
                                             </div>
                                             <button class="add-to-cart" type="submit">Add to cart</button>
+                                            <button class="add-to-cart" type="submit">Shop Now</button>
                                         </form>
                                     </div>
+                                    {% endif %}
 
                                     <div class="product-additional-info">
                                         <div class="product-social-sharing">
