@@ -34,7 +34,9 @@ class PRODUCT(models.Model):
     category= models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True, blank=True)
     subsubcategory = models.ForeignKey(Subsubcategory, on_delete=models.CASCADE, null=True, blank=True)
-    image= models.ImageField(upload_to='PRODUCT_PIC/')
+    image1= models.ImageField(upload_to='PRODUCT_PIC/',null=True)
+    image2 = models.ImageField(upload_to='PRODUCT_PIC/', null=True,blank=True)
+    image3 = models.ImageField(upload_to='PRODUCT_PIC/', null=True,blank=True)
     condition= models. CharField(choices=CONDITION, max_length=3)
     price= models.DecimalField(max_digits=7, decimal_places=2)
     description= models.TextField(max_length=250)
@@ -42,8 +44,8 @@ class PRODUCT(models.Model):
     is_hot_deal = models.BooleanField(default=False)
     is_trending = models.BooleanField(default=False)
 
-    def __str__(self):
-        return self.title
+    def is_out_of_stock(self):
+        return self.stock <= 0
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
