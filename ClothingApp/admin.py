@@ -7,6 +7,7 @@ from .models import *
 # admin.site.register(PRODUCT)
 # admin.site.register(Cart)
 # admin.site.register(Subsubcategory)
+# admin.site.register(Variation)
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['id','title']
@@ -17,7 +18,7 @@ class SubCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(PRODUCT)
 class PRODUCTAdmin(admin.ModelAdmin):
-    list_display = ['id','title','category','subcategory','subsubcategory', 'condition','price','stock','is_hot_deal']
+    list_display = ['id','title','category','subcategory','subsubcategory', 'condition','price','is_hot_deal']
 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
@@ -26,3 +27,7 @@ class CartAdmin(admin.ModelAdmin):
 @admin.register(Subsubcategory)
 class SubsubcategoryAdmin(admin.ModelAdmin):
     list_display = ['id','name','subcategory']
+
+@admin.register(Variation)
+class Variation(admin.ModelAdmin):
+    list_display = ['id','product','size','color','stock']
