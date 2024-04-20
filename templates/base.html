@@ -129,7 +129,7 @@
                     <!-- Begin Header Middle Right Area -->
                     <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15">
                         <!-- Begin Header Middle Searchbox Area -->
-                        <form action="#" class="hm-searchbox">
+                        <form action="#" class="hm-searchbox" method="GET">
                             <select class="nice-select select-search-category">
                                 <option value="0">All</option>
                                 <option value="10">Laptops</option>
@@ -202,7 +202,7 @@
                                 <option value="15">Smartwatch</option>
                                 <option value="16">Accessories</option>
                             </select>
-                            <input type="text" placeholder="Enter your search key ...">
+                            <input type="text" placeholder="Enter your search key ..." name="search">
                             <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
                         </form>
                         <!-- Header Middle Searchbox Area End Here -->
@@ -220,11 +220,13 @@
                                     </div>
                                     <span></span>
                                     <div class="minicart">
+                                        {% if cart_details %}
                                         <ul class="minicart-product-list">
+
                                             {% for i in cart_details %}
                                             <li>
                                                 <a href="single-product.html" class="minicart-product-image">
-                                                    <img src="{{i.product.image.url}}" alt="cart products">
+                                                    <img src="{{i.product.image1.url}}" alt="cart products">
                                                 </a>
                                                 <div class="minicart-product-details">
                                                     <h6><a href="single-product.html">{{i.product.title}}</a></h6>
@@ -236,7 +238,13 @@
                                             </li>
                                             {% endfor %}
 
+
                                         </ul>
+                                         {% else %}
+                                                <div style="text-align: center;">
+                                                    <p>No Product in the Cart</p>
+                                                </div>
+                                         {% endif %}
                                         <p class="minicart-total">SUBTOTAL: <span>{{subtotal}} Tk</span></p>
                                         <div class="minicart-button">
                                             <a href="{% url 'cart' %}"
