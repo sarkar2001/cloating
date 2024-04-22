@@ -40,23 +40,50 @@ class PRODUCT(models.Model):
     condition= models. CharField(choices=CONDITION, max_length=3)
     price= models.DecimalField(max_digits=7, decimal_places=2)
     description= models.TextField(max_length=250)
-    stock = models.IntegerField(default=0)
     is_hot_deal = models.BooleanField(default=False)
     is_trending = models.BooleanField(default=False)
 
-    def is_out_of_stock(self):
-        return self.stock <= 0
+    def __str__(self):
+        if hasattr(self, 'user'):
+            return f"{self.user}'s {self.product_name}"  # Assuming user is the owner of the product
+        else:
+            return self.title
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     size = models.CharField(max_length=5, blank=True, null=True)
+    color = models.CharField(max_length=5, blank=True, null=True)
 
 
     def __str__(self):
         return self.user.username
 
 
+class VariationManager(models.Manager):
+
+    def sizes(self):
+        return super(VariationManager, self).filter(variation='size')
+
+    def colors(self):
+        return super(VariationManager, self).filter(variation='color')
 
 
+
+class Variation(models.Model):
+    VARIATIONS_TYPE = (
+        ('size', 'size'),
+        ('color', 'color'),
+
+    )
+
+    product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
+    variation= models.CharField(choices=VARIATIONS_TYPE,max_length=20, null=True)
+    name= models.CharField(max_length=20, null=True)
+    stock = models.IntegerField(default=0)
+
+    variation_obj= VariationManager()
+
+    def is_out_of_stock(self):
+        return self.stock <= 0
