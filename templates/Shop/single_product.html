@@ -76,25 +76,31 @@
                                      <form method="POST" enctype="multipart/form-data">
                                          {% csrf_token %}
 
+                                         {% if single_product.variation_set.sizes %}
 
-                                     <div class="form-group">
-                                         <label for="exampleInputEmail1">Size</label>
-                                              <select name="religion">
-                                                   <option value="{{single_product.size}}">{{single_product.size}}</option>
-                                               <option value="Islam">M</option>
-                                               <option value="Hindu">L</option>
-                                             </select>>
+                                             <div class="form-group">
+                                                 <label for="exampleInputEmail1">Size</label>
 
-                                     </div>
-                                         <div class="form-group">
-                                         <label for="exampleInputEmail1">Color</label>
-                                              <select name="religion">
-                                                   <option value="{{single_product.color}}">{{single_product.color}}</option>
-                                               <option value="Islam">Grey</option>
-                                               <option value="Hindu">Black</option>
-                                             </select>>
+                                                      <select name="religion">
+                                                          {% for i in single_product.variation_set.sizes %}
+                                                               <option name="sizes" value={{i.name}}">{{i.name}}</option>
+                                                          {% endfor%}
 
-                                         </div>
+                                                     </select>>
+
+                                             </div>
+                                          {% endif %}
+                                         {% if single_product.variation_set.colors %}
+                                             <div class="form-group">
+                                             <label for="exampleInputEmail1">Color</label>
+                                                  <select name="religion">
+                                                       {% for i in single_product.variation_set.colors %}
+                                                               <option name="colors" value={{i.name}}">{{i.name}}</option>
+                                                       {% endfor%}
+                                                 </select>>
+
+                                             </div>
+                                         {% endif %}
                                      </form>
                                     </div>
                                     {% if single_product.is_out_of_stock %}
