@@ -10,6 +10,7 @@ from .models import *
 def home(request):
     category = Category.objects.all()
     subcategory = SubCategory.objects.all()
+    subsubcategory = Subsubcategory.objects.all()
     slides = SliderBanner.objects.all()
     products = PRODUCT.objects.all()
     brands = Brand.objects.all()
@@ -115,5 +116,23 @@ def contact(request):
 
 
 
+def Base(request):
+    products = PRODUCT.objects.all()
+    category = Category.objects.all()
+    subcategory = SubCategory.objects.all()
+    subsubcategory = Subsubcategory.objects.all()
 
+    if request.method == 'GET':
+        src = request.GET.get('search')
+        print(src)
+        if src:
+            products = PRODUCT.objects.filter(title__icontains=src)
+            subcategory = SubCategory.objects.filter(Q(name__icontains=src) | Q(category__icontains=src))
+            subsubcategory = Subsubcategory.objects.filter(Q(name__icontains=src) | Q(subcategory__icontains=src))
+        else:
+            products = PRODUCT.objects.all()
+            subcategory = SubCategory.objects.all()
+            subsubcategory = Subsubcategory.objects.all()
+
+    return render(request, 'base.html', locals())
 
