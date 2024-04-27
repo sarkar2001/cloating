@@ -33,12 +33,12 @@
                                     </div>
                                 </div>
                                 <div class="product-details-thumbs slider-thumbs-1">
-                                    <div class="sm-image"><img src="{{ single_product.image1.url}}" alt="product image thumb"></div>
-                                    <div class="sm-image"><img src="{{ single_product.image2.url}}" alt="product image thumb"></div>
-                                    <div class="sm-image"><img src="{{ single_product.image3.url}}" alt="product image thumb"></div>
-                                    <div class="sm-image"><img src="{{ single_product.image1.url}}" alt="product image thumb"></div>
-                                    <div class="sm-image"><img src="{{ single_product.image2.url}}" alt="product image thumb"></div>
-                                    <div class="sm-image"><img src="{{ single_product.image3.url}}" alt="product image thumb"></div>
+                                    <div class="sm-image"><img style="height:150px;width:150px"  src="{{ single_product.image1.url}}" alt="product image thumb"></div>
+                                    <div class="sm-image"><img style="height:150px;width:150px"  src="{{ single_product.image2.url}}" alt="product image thumb"></div>
+                                    <div class="sm-image"><img style="height:150px;width:150px"  src="{{ single_product.image3.url}}" alt="product image thumb"></div>
+                                    <div class="sm-image"><img style="height:150px;width:150px"  src="{{ single_product.image1.url}}" alt="product image thumb"></div>
+                                    <div class="sm-image"><img style="height:150px;width:150px"  src="{{ single_product.image2.url}}" alt="product image thumb"></div>
+                                    <div class="sm-image"><img style="height:150px;width:150px"  src="{{ single_product.image3.url}}" alt="product image thumb"></div>
                                 </div>
                             </div>
                             <!--// Product Details Left -->
@@ -86,7 +86,7 @@
                                                                <option name="sizes" value={{i.name}}">{{i.name}}</option>
                                                           {% endfor%}
 
-                                                     </select>>
+                                                     </select>
 
                                              </div>
                                           {% endif %}
@@ -97,7 +97,7 @@
                                                        {% for i in single_product.variation_set.colors %}
                                                                <option name="colors" value={{i.name}}">{{i.name}}</option>
                                                        {% endfor%}
-                                                 </select>>
+                                                 </select>
 
                                              </div>
                                          {% endif %}
