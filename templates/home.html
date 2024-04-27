@@ -26,9 +26,10 @@
                                  <!-- Category Area -->
                                <div id="cate-toggle" class="category-menu-list">
                                     <ul>
-                                       {% for i in category %}
+
+                                     {% for i in category %}
                                         <li>
-                                            <a href="{% url 'product' i.id %}">{{ i.title }}</a>
+                                            <a href="{% url 'product' i.id %}" role="button" >{{ i.title }}</a>
                                             <!-- Check if subcategories exist -->
                                             {% for b in i.subcategory_set.all %}
                                                 <ul>
@@ -47,6 +48,26 @@
                                         </li>
                                     {% endfor %}
 
+
+<!--                                       {% for i in category %}-->
+<!--                                            <li>-->
+<!--                                                <button class="category-btn" data-toggle="collapse" data-target="#category{{ i.id }}">{{ i.title }}</button>-->
+<!--                                                <ul id="category{{ i.id }}" class="collapse">-->
+<!--                                                    {% for b in i.subcategory_set.all %}-->
+<!--                                                        <li>-->
+<!--                                                            <button class="subcategory-btn" data-toggle="collapse" data-target="#subcategory{{ b.id }}">{{ b.name }}</button>-->
+<!--                                                            <ul id="subcategory{{ b.id }}" class="collapse">-->
+<!--                                                                {% for e in b.subsubcategory_set.all %}-->
+<!--                                                                    <li>-->
+<!--                                                                        <button class="subsubcategory-btn">{{ e.name }}</button>-->
+<!--                                                                    </li>-->
+<!--                                                                {% endfor %}-->
+<!--                                                            </ul>-->
+<!--                                                        </li>-->
+<!--                                                    {% endfor %}-->
+<!--                                                </ul>-->
+<!--                                            </li>-->
+<!--                                        {% endfor %}-->
                                         <li class="rx-parent">
                                             <a class="rx-default">More Categories</a>
                                             <a class="rx-show">Less Categories</a>
