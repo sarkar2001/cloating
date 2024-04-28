@@ -112,27 +112,30 @@ def contact(request):
     return render(request, 'contact.html', locals())
 
 
-
-
-
-
-def Base(request):
+def allpro(request):
     products = PRODUCT.objects.all()
-    category = Category.objects.all()
-    subcategory = SubCategory.objects.all()
-    subsubcategory = Subsubcategory.objects.all()
+    # category = Category.objects.all()
+    # subcategory = SubCategory.objects.all()
+    # subsubcategory = Subsubcategory.objects.all()
+    search_query= request.GET.get('search')
+    if search_query:
+        products = PRODUCT.objects.filter(Q(title__icontains=search_query) | Q(description__icontains=search_query))
+        print('search_query')
+        context = {
+            'all_product': products
+        }
 
-    if request.method == 'GET':
-        src = request.GET.get('search')
-        print(src)
-        if src:
-            products = PRODUCT.objects.filter(title__icontains=src)
-            subcategory = SubCategory.objects.filter(Q(name__icontains=src) | Q(category__icontains=src))
-            subsubcategory = Subsubcategory.objects.filter(Q(name__icontains=src) | Q(subcategory__icontains=src))
-        else:
-            products = PRODUCT.objects.all()
-            subcategory = SubCategory.objects.all()
-            subsubcategory = Subsubcategory.objects.all()
+    # if request.method == 'GET':
+    #     src = request.GET.get('search')
+    #     print(src)
+    #     if src:
+    #         products = PRODUCT.objects.filter(title__icontains=src)
+    #         subcategory = SubCategory.objects.filter(Q(name__icontains=src) | Q(category__icontains=src))
+    #         subsubcategory = Subsubcategory.objects.filter(Q(name__icontains=src) | Q(subcategory__icontains=src))
+    #     else:
+    #         products = PRODUCT.objects.all()
+    #         subcategory = SubCategory.objects.all()
+    #         subsubcategory = Subsubcategory.objects.all()
 
-    return render(request, 'base.html', locals())
+    return render(request, 'Shop/allpro.html', locals())
 
