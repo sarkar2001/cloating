@@ -59,7 +59,8 @@
 <!--                                                            <ul id="subcategory{{ b.id }}" class="collapse">-->
 <!--                                                                {% for e in b.subsubcategory_set.all %}-->
 <!--                                                                    <li>-->
-<!--                                                                        <button class="subsubcategory-btn">{{ e.name }}</button>-->
+<!--                                                                       <a href="{% url 'product' e.id %}" class="subsubcategory-btn">{{ e.name }}</a>-->
+
 <!--                                                                    </li>-->
 <!--                                                                {% endfor %}-->
 <!--                                                            </ul>-->
