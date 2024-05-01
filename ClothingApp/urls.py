@@ -11,6 +11,10 @@ urlpatterns = [
     path('plus_cart/<int:id>/', plus_cart, name='plus_cart'),
     path('brand/<int:id>/', brand, name='brand'),
     path('checkout/', checkout, name='checkout'),
+    path('sslcommerz/', sslcommerz, name='sslcommerz'),
+    path('success/', success, name='success'),
+    path('fail/', fail, name='fail'),
+
 
 
 
