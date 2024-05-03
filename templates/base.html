@@ -69,12 +69,12 @@
                             <ul class="ht-menu">
                                 <!-- Begin Setting Area -->
                                 <li>
-                                    <div class="ht-setting-trigger"><span>Setting</span></div>
+                                    <div class="ht-setting-trigger"><span>Account</span></div>
                                     <div class="setting ht-setting">
                                         <ul class="ht-setting-list">
-                                            <li><a href="login-register.html">My Account</a></li>
-                                            <li><a href="checkout.html">Checkout</a></li>
-                                            <li><a href="login-register.html">Sign In</a></li>
+                                            <li><a href="{% url 'Log_in' %}">Sign In</a></li>
+                                            <li><a href="{% url 'Registration' %}">Sign Up</a></li>
+                                            <li><a href="{% url 'checkout' %}">Checkout</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -129,7 +129,7 @@
                     <!-- Begin Header Middle Right Area -->
                     <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15">
                         <!-- Begin Header Middle Searchbox Area -->
-                        <form class="hm-searchbox" method="GET">
+                        <form action="{% url 'allpro' %}" class="hm-searchbox" method="GET">
                             <input type="Search" placeholder="Enter your search key ..." name="search">
                             <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
                         </form>
@@ -204,7 +204,7 @@
                                 <ul>
                                     <li class="dropdown-holder"><a href="{% url 'home' %}">Home</a>
                                     </li>
-                                    <li class="megamenu-holder"><a href="{% url 'home' %}">Shop</a>
+                                    <li class="megamenu-holder"><a href="{% url 'allpro' %}">Shop</a>
                                     </li>
 
                                     <li><a href="{% url 'about' %}">About Us</a></li>
