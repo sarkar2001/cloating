@@ -5,6 +5,8 @@ from django.db.models import Q
 from django.contrib.auth import authenticate,login,logout
 from ClothingApp.models import *
 from .models import *
+from django.core.paginator import Paginator
+
 
 
 def home(request):
@@ -14,12 +16,13 @@ def home(request):
     slides = SliderBanner.objects.all()
     products = PRODUCT.objects.all()
     brands = Brand.objects.all()
+    # subproducts= PRODUCT.subcategory.all()
 
     user = request.user
     if user.is_authenticated:
-        length = len(Cart.objects.filter ())
-        cart_details = Cart.objects.filter () [:2]
-        all_cart = Cart.objects.filter ()
+        length = len(Cart.objects.filter(user=user))
+        cart_details = Cart.objects.filter(user=user)[:2]
+        all_cart = Cart.objects.filter(user=user)
         subtotal = 0
 
         for i in  all_cart :
@@ -114,13 +117,17 @@ def contact(request):
 
 def allpro(request):
     products = PRODUCT.objects.all()
+    paginator = Paginator(products, 3)
+    # page_list= request.GET.get('search')
+    page_number = request.GET.get('page', 1)
+    products = paginator.get_page(page_number)
     # category = Category.objects.all()
     # subcategory = SubCategory.objects.all()
     # subsubcategory = Subsubcategory.objects.all()
     search_query= request.GET.get('search')
     if search_query:
         products = PRODUCT.objects.filter(Q(title__icontains=search_query) | Q(description__icontains=search_query))
-        print('search_query')
+        # print('search_query')
         context = {
             'all_product': products
         }
