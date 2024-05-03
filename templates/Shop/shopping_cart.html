@@ -64,7 +64,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-5 ml-auto">
-                        <form action="" method="POST">
+                        <form action="{% url 'checkout' %}" method="POST">
                             {% csrf_token %}
                             <div class="cart-page-total">
                                 <h2>Cart totals</h2>
