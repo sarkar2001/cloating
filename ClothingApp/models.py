@@ -44,10 +44,7 @@ class PRODUCT(models.Model):
     is_trending = models.BooleanField(default=False)
 
     def __str__(self):
-        if hasattr(self, 'user'):
-            return f"{self.user}'s {self.product_name}"  # Assuming user is the owner of the product
-        else:
-            return self.title
+        return self.title
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -60,30 +57,33 @@ class Cart(models.Model):
     def __str__(self):
         return self.user.username
 
-
-class VariationManager(models.Manager):
-
-    def sizes(self):
-        return super(VariationManager, self).filter(variation='size')
-
-    def colors(self):
-        return super(VariationManager, self).filter(variation='color')
-
-
-
 class Variation(models.Model):
-    VARIATIONS_TYPE = (
-        ('size', 'size'),
-        ('color', 'color'),
-
+    sizetype = (
+        ('M', 'M'),
+        ('L', 'L'),
     )
-
+    range = (
+        ('Black', 'Black'),
+        ('Grey', 'Grey'),
+    )
     product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
-    variation= models.CharField(choices=VARIATIONS_TYPE,max_length=20, null=True)
-    name= models.CharField(max_length=20, null=True)
-    stock = models.IntegerField(default=0)
-
-    variation_obj= VariationManager()
+    size = models.CharField(choices=sizetype,max_length=10,null=True,blank=True)
+    color = models.CharField(choices=range,max_length=10,null=True,blank=True)
+    stock = models.IntegerField(default=0,null=True)
 
     def is_out_of_stock(self):
         return self.stock <= 0
+
+
+class Order(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    address = models.CharField(max_length=255)
+    town_or_city = models.CharField(max_length=100)
+    state_or_county = models.CharField(max_length=100)
+    postcode_or_zip = models.CharField(max_length=20)
+    email_address = models.EmailField()
+    phone = models.CharField(max_length=20)
+
+    def __str__(self):
+        return f"Order by {self.first_name} {self.last_name}"
