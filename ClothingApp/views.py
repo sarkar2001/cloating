@@ -216,3 +216,32 @@ def success(request):
 @csrf_exempt
 def fail(request):
     return render(request, 'Shop/fail.html')
+
+
+def Order(request):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        address = request.POST.get('address')
+        town_or_city = request.POST.get('town_or_city')
+        state_or_county = request.POST.get('state_or_county')
+        postcode_or_zip = request.POST.get('postcode_or_zip')
+        email_address = request.POST.get('email_address')
+        phone = request.POST.get('phone')
+
+        order = Order(
+            first_name=first_name,
+            last_name=last_name,
+            address=address,
+            town_or_city=town_or_city,
+            state_or_county=state_or_county,
+            postcode_or_zip=postcode_or_zip,
+            email_address=email_address,
+            phone=phone
+        )
+        order.save()
+
+        # Redirect to a success page or do something else
+        return redirect('order_success')
+
+    return render(request, 'Shop/checkout.html')
