@@ -49,26 +49,36 @@
                                     {% endfor %}
 
 
-<!--                                       {% for i in category %}-->
-<!--                                            <li>-->
-<!--                                                <button class="category-btn" data-toggle="collapse" data-target="#category{{ i.id }}">{{ i.title }}</button>-->
-<!--                                                <ul id="category{{ i.id }}" class="collapse">-->
-<!--                                                    {% for b in i.subcategory_set.all %}-->
-<!--                                                        <li>-->
-<!--                                                            <button class="subcategory-btn" data-toggle="collapse" data-target="#subcategory{{ b.id }}">{{ b.name }}</button>-->
-<!--                                                            <ul id="subcategory{{ b.id }}" class="collapse">-->
-<!--                                                                {% for e in b.subsubcategory_set.all %}-->
-<!--                                                                    <li>-->
-<!--                                                                       <a href="{% url 'product' e.id %}" class="subsubcategory-btn">{{ e.name }}</a>-->
+<!--                                      {% for i in category %}-->
+<!--                                        <li>-->
+<!--                                            <button class="category-btn" data-toggle="collapse"  data-target="#category{{ i.id }}">{{ i.title }}</button>-->
+<!--                                            <ul id="category{{ i.id }}" class="collapse">-->
+<!--                                                {% for b in i.subcategory_set.all %}-->
+<!--                                                    <li>-->
 
-<!--                                                                    </li>-->
-<!--                                                                {% endfor %}-->
-<!--                                                            </ul>-->
-<!--                                                        </li>-->
-<!--                                                    {% endfor %}-->
-<!--                                                </ul>-->
-<!--                                            </li>-->
-<!--                                        {% endfor %}-->
+<!--                                                        {% if b.subsubcategory_set.all %}-->
+<!--                                                            <button class="subcategory-btn" data-toggle="collapse" data-target="#subcategory{{ b.id }}">{{ b.name }}</button>-->
+<!--                                                        {% else %}-->
+<!--                                                        <a href="{% url 'product' b.id %}">-->
+<!--                                                            <button class="subcategory-btn" data-toggle="collapse" data-target="#subcategory{{ b.id }}">{{ b.name }}</button>-->
+<!--                                                        </a>-->
+
+<!--                                                        {% endif %}-->
+
+<!--                                                        <ul id="subcategory{{ b.id }}" class="collapse">-->
+<!--                                                            {% for e in b.subsubcategory_set.all %}-->
+<!--                                                                <li>-->
+<!--                                                                   <a href="{% url 'product' e.id %}" >-->
+<!--                                                                      <button class="subsubcategory-btn">{{ e.name }}</button></a>-->
+
+<!--                                                                </li>-->
+<!--                                                            {% endfor %}-->
+<!--                                                        </ul>-->
+<!--                                                    </li>-->
+<!--                                                {% endfor %}-->
+<!--                                            </ul>-->
+<!--                                        </li>-->
+<!--                                    {% endfor %}-->
                                         <li class="rx-parent">
                                             <a class="rx-default">More Categories</a>
                                             <a class="rx-show">Less Categories</a>
@@ -82,30 +92,30 @@
                         <!-- Category Menu Area End Here -->
 
 
-                        <!-- Begin Slider Area -->
-                                <div class="col-lg-9">
-                <div class="slider-area pt-sm-30 pt-xs-0 pb-xs-100 ">
-                    <div class="slider-active owl-carousel">
-                        {% for i in slides %}
-                        <!-- Begin Single Slide Area -->
-                        <div class="single-slide align-center-left animation-style-02 bg-4">
-                             <img src="{{i.image.url}}" alt="Image Description">
-                            <div class="slider-progress"></div>
-                            <div class="slider-content">
-                                <h5>{{i.sale_offer}}</h5>
-                                <h2>{{i.title}}</h2>
-                                <h3>Starting at <span>{{i.starting_price}}</span></h3>
-                                <div class="default-btn slide-btn">
-                                    <a class="links" href="{% url 'product' i.id %}">Shopping Now</a>
+                                <!-- Begin Slider Area -->
+                                        <div class="col-lg-9">
+                        <div class="slider-area pt-sm-30 pt-xs-0 pb-xs-100 ">
+                            <div class="slider-active owl-carousel">
+                                {% for i in slides %}
+                                <!-- Begin Single Slide Area -->
+                                <div class="single-slide align-center-left animation-style-02 bg-4">
+                                     <img src="{{i.image.url}}" alt="Image Description">
+                                    <div class="slider-progress"></div>
+                                    <div class="slider-content">
+                                        <h5>{{i.sale_offer}}</h5>
+                                        <h2>{{i.title}}</h2>
+                                        <h3>Starting at <span>{{i.starting_price}}</span></h3>
+                                        <div class="default-btn slide-btn">
+                                            <a class="links" href="{% url 'allpro'  %}">Shopping Now</a>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                {% endfor %}
+
                             </div>
                         </div>
-
-                        {% endfor %}
-
                     </div>
-                </div>
-            </div>
                                 <!-- Slider Area End Here -->
 
 
