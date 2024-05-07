@@ -14,6 +14,7 @@ urlpatterns = [
     path('sslcommerz/', sslcommerz, name='sslcommerz'),
     path('success/', success, name='success'),
     path('fail/', fail, name='fail'),
+    path('Order/', fail, name='Order'),
 
 
 
