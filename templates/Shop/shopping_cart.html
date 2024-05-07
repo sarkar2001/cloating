@@ -23,42 +23,41 @@
                 <div class="table-content table-responsive">
                     <table class="table">
                         <thead>
-                        <tr>
-                            <th class="li-product-remove">remove</th>
-                            <th class="li-product-thumbnail">images</th>
-                            <th class="cart-product-name">Product</th>
-                            <th class="li-product-price">Unit Price</th>
-                            <th class="li-product-quantity">Quantity</th>
-                            <th class="li-product-subtotal">Total</th>
-                        </tr>
+                            <tr>
+                                <th class="li-product-remove">remove</th>
+                                <th class="li-product-thumbnail">images</th>
+                                <th class="cart-product-name">Product</th>
+                                <th class="li-product-price">Unit Price</th>
+                                <th class="li-product-size">Size</th>
+                                <th class="li-product-color">Color</th>
+                                <th class="li-product-quantity">Quantity</th>
+                                <th class="li-product-subtotal">Total</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        {% for i in all_cart %}
-                        <tr>
-                            <td class="li-product-remove"><a href="{%   url 'remove_cart' i.id %}"><i class="fa fa-times"></i></a></td>
-                            <td class="li-product-thumbnail"><a href="#"><img style="height:80px; width:90px; "
-                                                                              src="{{i.product.image1.url}}"
-                                                                              alt="Li's Product Image"></a></td>
-                            <td class="li-product-name"><a href="#">{{i.product.title}}</a></td>
-                            <td class="li-product-price"><span class="amount">{{i.product.price}}</span></td>
-                            <td class="quantity">
-                                <label>Quantity</label>
-                                <div class="cart-plus-minus">
-                                    <input class="cart-plus-minus-box" value="{{i.quantity}}" type="text">
-
-                                    <a href="{% url 'minus_cart' i.product.id %}"><div class="dec qtybutton"><i class="fa fa-angle-down"></i></div></a>
-
-                                   <a href="{% url 'plus_cart' i.product.id %}"><div class="inc qtybutton"><i class="fa fa-angle-up"></i></div></a>
-
-                                </div>
-                            </td>
-                            <td class="product-subtotal"><span class="amount">{% widthratio i.product.price 1 i.quantity %}</span>
-                            </td>
-                        </tr>
-                        {% endfor %}
+                            {% for i in all_cart %}
+                            <tr>
+                                <td class="li-product-remove"><a href="{% url 'remove_cart' i.id %}"><i class="fa fa-times"></i></a></td>
+                                <td class="li-product-thumbnail"><a href="#"><img style="height:80px; width:90px; " src="{{i.product.image1.url}}" alt="Li's Product Image"></a></td>
+                                <td class="li-product-name"><a href="#">{{i.product.title}}</a></td>
+                                <td class="li-product-price"><span class="amount">{{i.product.price}}</span></td>
+                                <td class="li-product-size">{{i.product.size}}</td> <!-- Display size -->
+                                <td class="li-product-color">{{i.product.color}}</td> <!-- Display color -->
+                                <td class="quantity">
+                                    <label>Quantity</label>
+                                    <div class="cart-plus-minus">
+                                        <input class="cart-plus-minus-box" value="{{i.quantity}}" type="text">
+                                        <a href="{% url 'minus_cart' i.product.id %}"><div class="dec qtybutton"><i class="fa fa-angle-down"></i></div></a>
+                                        <a href="{% url 'plus_cart' i.product.id %}"><div class="inc qtybutton"><i class="fa fa-angle-up"></i></div></a>
+                                    </div>
+                                </td>
+                                <td class="product-subtotal"><span class="amount">{% widthratio i.product.price 1 i.quantity %}</span></td>
+                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
+
                 <div class="row">
 
                 </div>
@@ -95,9 +94,8 @@
                                 </ul>
                                 <br>
 
-                                <button type="submit" class="btn" id="mc-submit" style="color:black;">
-                                    Proceed to checkout
-                                </button>
+                                 <a href="{% url 'checkout'%}">Proceed to checkout</a>
+
                             </div>
                         </form>
                     </div>
