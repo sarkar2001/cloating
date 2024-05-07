@@ -72,40 +72,75 @@
 
 
 
-                                    <div class="container">
-                                     <form method="POST" enctype="multipart/form-data">
-                                         {% csrf_token %}
+ <!-- Add dropdown menus for color and size -->
+<div class="product-variants">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="product-variants-size">
+                <label for="size-select">Size</label>
+                <select id="size-select" class="nice-select">
+                    {% for variation in single_product.variation_set.all %}
+                        {% if variation.size %}
+                            <option value="{{ variation.size }}">{{ variation.get_size_display }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="product-variants-color">
+                <label for="color-select">Color</label>
+                <select id="color-select" class="nice-select">
+                    {% for variation in single_product.variation_set.all %}
+                        {% if variation.color %}
+                            <option value="{{ variation.color }}">{{ variation.get_color_display }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
 
-                                         {% if single_product.variation_set.sizes %}
 
-                                             <div class="form-group">
-                                                 <label for="exampleInputEmail1">Size</label>
 
-                                                      <select name="religion">
-                                                          {% for i in single_product.variation_set.sizes %}
-                                                               <option name="sizes" value={{i.name}}">{{i.name}}</option>
-                                                          {% endfor%}
 
-                                                     </select>
+<!--                                    <div class="container">-->
+<!--                                     <form method="POST" enctype="multipart/form-data">-->
+<!--                                         {% csrf_token %}-->
 
-                                             </div>
-                                          {% endif %}
-                                         {% if single_product.variation_set.colors %}
-                                             <div class="form-group">
-                                             <label for="exampleInputEmail1">Color</label>
-                                                  <select name="religion">
-                                                       {% for i in single_product.variation_set.colors %}
-                                                               <option name="colors" value={{i.name}}">{{i.name}}</option>
-                                                       {% endfor%}
-                                                 </select>
+<!--                                         {% if single_product.variation_set.sizes %}-->
 
-                                             </div>
-                                         {% endif %}
-                                     </form>
-                                    </div>
-                                    {% if single_product.is_out_of_stock %}
-                                         <p style="color: red;">Out of Stock</p>
-                                    {% else %}
+<!--                                             <div class="form-group">-->
+<!--                                                 <label for="exampleInputEmail1">Size</label>-->
+
+<!--                                                      <select name="religion">-->
+<!--                                                          {% for i in single_product.variation_set.sizes %}-->
+<!--                                                               <option name="sizes" value={{i.name}}">{{i.name}}</option>-->
+<!--                                                          {% endfor%}-->
+
+<!--                                                     </select>-->
+
+<!--                                             </div>-->
+<!--                                          {% endif %}-->
+<!--                                         {% if single_product.variation_set.colors %}-->
+<!--                                             <div class="form-group">-->
+<!--                                             <label for="exampleInputEmail1">Color</label>-->
+<!--                                                  <select name="religion">-->
+<!--                                                       {% for i in single_product.variation_set.colors %}-->
+<!--                                                               <option name="colors" value={{i.name}}">{{i.name}}</option>-->
+<!--                                                       {% endfor%}-->
+<!--                                                 </select>-->
+
+<!--                                             </div>-->
+<!--                                         {% endif %}-->
+<!--                                     </form>-->
+<!--                                    </div>-->
+<!--                                    {% if single_product.is_out_of_stock %}-->
+<!--                                         <p style="color: red;">Out of Stock</p>-->
+<!--                                    {% else %}-->
+
+
                                     <div class="single-add-to-cart">
                                         <form action="{% url 'addtocart' single_product.id %}" class="cart-quantity">
                                             <div class="quantity">
@@ -117,7 +152,7 @@
                                                 </div>
                                             </div>
                                             <button class="add-to-cart" type="submit">Add to cart</button>
-                                            <button class="add-to-cart" type="submit">Shop Now</button>
+                                            <a href="{% url 'cart' %}" class="add-to-cart" type="submit">Shop Now</a>
                                         </form>
                                     </div>
                                      {% endif %}
@@ -133,7 +168,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -652,7 +687,7 @@
                         </div>
                     </div>
                 </div>
-            </div>   
+            </div>
             <!-- Quick View | Modal Area End Here -->
 
 
