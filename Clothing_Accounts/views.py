@@ -11,12 +11,9 @@ from django.core.paginator import Paginator
 
 def home(request):
     category = Category.objects.all()
-    subcategory = SubCategory.objects.all()
-    subsubcategory = Subsubcategory.objects.all()
     slides = SliderBanner.objects.all()
     products = PRODUCT.objects.all()
     brands = Brand.objects.all()
-    # subproducts= PRODUCT.subcategory.all()
 
     user = request.user
     if user.is_authenticated:
