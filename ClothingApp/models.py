@@ -25,6 +25,21 @@ class Subsubcategory(models.Model):
         return self.name
 
 
+class ProductSize(models.Model):
+    size = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.size
+
+
+class ProductColor(models.Model):
+    color = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.color
+
+
+
 class PRODUCT(models.Model):
     CONDITION = (
         ('NEW', 'NEW'),
@@ -38,6 +53,7 @@ class PRODUCT(models.Model):
     image2 = models.ImageField(upload_to='PRODUCT_PIC/', null=True,blank=True)
     image3 = models.ImageField(upload_to='PRODUCT_PIC/', null=True,blank=True)
     condition= models. CharField(choices=CONDITION, max_length=3)
+
     price= models.DecimalField(max_digits=7, decimal_places=2)
     description= models.TextField(max_length=250)
     is_hot_deal = models.BooleanField(default=False)
@@ -46,25 +62,21 @@ class PRODUCT(models.Model):
     def __str__(self):
         return self.title
 
-class Cart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-    size = models.CharField(max_length=5, blank=True, null=True)
-    color = models.CharField(max_length=5, blank=True, null=True)
 
-
-    def __str__(self):
-        return self.user.username
 
 class Variation(models.Model):
     sizetype = (
+        ('S', 'S'),
         ('M', 'M'),
         ('L', 'L'),
+        ('XL', 'XL'),
     )
     range = (
         ('Black', 'Black'),
         ('Grey', 'Grey'),
+        ('Green', 'Green'),
+        ('White', 'White'),
+
     )
     product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
     size = models.CharField(choices=sizetype,max_length=10,null=True,blank=True)
@@ -74,16 +86,59 @@ class Variation(models.Model):
     def is_out_of_stock(self):
         return self.stock <= 0
 
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    variation = models.ForeignKey('Variation', on_delete=models.CASCADE, blank=True, null=True)
 
-class Order(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    def __str__(self):
+        size_display = self.variation.get_size_display() if self.variation else "N/A"
+        color_display = self.variation.get_color_display() if self.variation else "N/A"
+        return f"{self.user.username}'s Cart Item - Size: {size_display}, Color: {color_display}"
+
+
+
+
+
+
+
+class Customer(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    firstname = models.CharField(max_length=100)
+    lastname = models.CharField(max_length=100)
+    company_name= models.CharField(max_length=100)
     address = models.CharField(max_length=255)
-    town_or_city = models.CharField(max_length=100)
-    state_or_county = models.CharField(max_length=100)
-    postcode_or_zip = models.CharField(max_length=20)
-    email_address = models.EmailField()
+    city = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    postcode = models.CharField(max_length=20)
+    email = models.EmailField()
     phone = models.CharField(max_length=20)
 
     def __str__(self):
-        return f"Order by {self.first_name} {self.last_name}"
+        return self.first_name
+
+
+
+class Order(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField(auto_now=False, auto_now_add=True)
+    status = models.CharField(max_length=100, default="pending")
+    paymentSystem = models.CharField(max_length=100, default="Cash On Delivery")
+    total = models.PositiveIntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.customer.first_name
+
+
+class OrderItems(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    size = models.CharField(max_length=5, blank=True, null=True)
+    color = models.CharField(max_length=5, blank=True, null=True)
+
+    def order_subtotal(self):
+        return self.quantity * self.product.price
