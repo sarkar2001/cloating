@@ -1,11 +1,14 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .models import *
 from django.db.models import Q
 from django.contrib import messages
 from sslcommerz_lib import SSLCOMMERZ
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required  # Import the login_required decorator
+
 
 # Create your views here.
+
 
 def product(request, id):
     # user = request.user
@@ -54,9 +57,66 @@ def single_product(request, id):
     return render(request, 'Shop/single_product.html', context)
 
 
-def addtocart(request, id):
+
+
+
+@login_required
+def addtocart(request, product_id):
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity', 1))
+        size = request.POST.get('size', None)
+        color = request.POST.get('color', None)
+
+        product = PRODUCT.objects.get(pk=product_id)
+        variation = None
+        if size and color:
+            variation = Variation.objects.filter(product=product, size=size, color=color).first()
+
+        if variation:
+            cart_item, created = Cart.objects.get_or_create(
+                user=request.user,
+                product=product,
+                variation=variation
+            )
+            if not created:
+                # If the cart item already exists, update the quantity
+                cart_item.quantity += quantity
+                cart_item.save()
+                messages.success(request, "Quantity updated in cart.")
+            else:
+                cart_item.quantity = quantity
+                cart_item.save()
+                messages.success(request, "Item added to cart successfully.")
+        else:
+            messages.error(request, "Invalid variation.")
+
+    else:
+        messages.error(request, "Invalid request method.")
+
+    return redirect('cart')
+
+
+
+def add_to_cart(request, id):
     prod = PRODUCT.objects.get(id=id)
     user = request.user
+
+
+    # if prod:
+    #     if user.is_authenticated:
+    #         try:
+    #             cart = Cart.objects.get(Q(user=user) & Q(product=prod))
+    #             if cart:
+    #                 cart.quantity += 1
+    #                 cart.save()
+    #                 return redirect(request.META['HTTP_REFERER'])
+    #         except:
+    #             new_cart = Cart.objects.create(user=user, product=prod)
+    #             new_cart.save()
+    #             return redirect(request.META['HTTP_REFERER'])
+    #     else:
+    #         return redirect('Log_in')
+    # return redirect(request.META['HTTP_REFERER'])
 
     if prod:
         if user.is_authenticated:
@@ -68,11 +128,11 @@ def addtocart(request, id):
                 quantity = int(request.POST.get('quantity', 1))
 
                 # Fetch the variation object
-                variation = Variation.objects.get(id=variation_id)
+                # variation = Variation.objects.get(id=variation_id)
 
                 # Check if the item already exists in the cart
                 cart_item = Cart.objects.filter(
-                    Q(user=user) & Q(product=prod) & Q(variation=variation) & Q(size=size) & Q(color=color)).first()
+                    Q(user=user) & Q(product=prod) & Q(size=size) & Q(color=color)).first()
 
                 if cart_item:
                     # If item already exists, update the quantity
@@ -80,7 +140,7 @@ def addtocart(request, id):
                     cart_item.save()
                 else:
                     # If item doesn't exist, create a new cart entry
-                    Cart.objects.create(user=user, product=prod, variation=variation, size=size, color=color,
+                    Cart.objects.create(user=user, product=prod, size=size, color=color,
                                         quantity=quantity)
 
             return redirect(request.META.get('HTTP_REFERER', '/'))
@@ -146,7 +206,6 @@ def minus_cart(request, id):
 def brand(request,id):
     return render(request, 'Shop/branding_page.html', locals())
 
-
 def checkout(request):
     user = request.user
     length = len(Cart.objects.filter(user=user))
@@ -182,8 +241,6 @@ def checkout(request):
         return redirect(request.META['HTTP_REFERER'])
 
     return render(request, 'Shop/checkout.html', locals())
-
-
 
 
 def sslcommerz(request):
@@ -241,33 +298,35 @@ def fail(request):
     return render(request, 'Shop/fail.html')
 
 
-# def Order(request):
-#     if request.method == 'POST':
-#         first_name = request.POST.get('first_name')
-#         last_name = request.POST.get('last_name')
-#         address = request.POST.get('address')
-#         town_or_city = request.POST.get('town_or_city')
-#         state_or_county = request.POST.get('state_or_county')
-#         postcode_or_zip = request.POST.get('postcode_or_zip')
-#         email_address = request.POST.get('email_address')
-#         phone = request.POST.get('phone')
-#
-#         order = Order(
-#             first_name=first_name,
-#             last_name=last_name,
-#             address=address,
-#             town_or_city=town_or_city,
-#             state_or_county=state_or_county,
-#             postcode_or_zip=postcode_or_zip,
-#             email_address=email_address,
-#             phone=phone
-#         )
-#         order.save()
-#
-#         # Redirect to a success page or do something else
-#         return redirect('order_success')
-#
-#     return render(request, 'Shop/checkout.html')
+def Customer(request):
+    if request.method == 'POST':
+        firstname = request.POST.get('firstname')
+        lastname = request.POST.get('lastname')
+        company_name= request.POST.get('company_name')
+        address = request.POST.get('address')
+        city = request.POST.get('city')
+        country = request.POST.get('country')
+        postcode = request.POST.get('postcode')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+
+        customer = Customer(
+            firstname=firstname,
+            lastname=lastname,
+            company_name=company_name,
+            address=address,
+            city=city,
+            country=country,
+            postcode=postcode,
+            email=email,
+            phone=phone
+        )
+        customer.save()
+
+        # Redirect to a success page or do something else
+        return redirect('order_success')
+
+    return render(request, 'Shop/checkout.html')
 
 #
 # # Example of reducing stock when an order is placed
@@ -279,8 +338,3 @@ def fail(request):
 #     variation.stock_quantity -= 1
 #     variation.save()
 
-
-
-def subsubcategory(request, id):
-    single_product =  Subsubcategory.objects.filter(id=id)
-    return render(request, 'Shop/all_product.html', locals())
