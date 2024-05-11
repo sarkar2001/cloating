@@ -5,6 +5,7 @@ from django.contrib import messages
 from sslcommerz_lib import SSLCOMMERZ
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required  # Import the login_required decorator
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -20,6 +21,9 @@ def product(request, id):
     cart_details = Cart.objects.filter(user=user)[:2]
     all_cart = Cart.objects.filter(user=user)
     subtotal = sum(item.product.price * item.quantity for item in all_cart)
+    paginator = Paginator(products, 3)
+    page_number = request.GET.get('page', 1)
+    products = paginator.get_page(page_number)
     if user.is_authenticated:
         context = {
             'products': products,
