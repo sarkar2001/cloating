@@ -11,17 +11,27 @@ from django.contrib.auth.decorators import login_required  # Import the login_re
 
 
 def product(request, id):
-    # user = request.user
+    user = request.user
     subcategory = SubCategory.objects.get(id=id)
     subsubcategory = Subsubcategory.objects.get(id=id)
     category = Category.objects.all()
-    # length = len(Cart.objects.filter(user=user))
-    # cart_details = Cart.objects.filter(user=user)[:2]
-    # all_cart = Cart.objects.filter(user=user)
-    # subtotal = 0
-    # for i in all_cart:
-    #     a = i.product.price * i.quantity
-    #     subtotal += a
+    products = PRODUCT.objects.all()
+    length = len(Cart.objects.filter(user=user))
+    cart_details = Cart.objects.filter(user=user)[:2]
+    all_cart = Cart.objects.filter(user=user)
+    subtotal = sum(item.product.price * item.quantity for item in all_cart)
+    if user.is_authenticated:
+        context = {
+            'products': products,
+            'length': length,
+            'cart_details': cart_details,
+            'all_cart': all_cart,
+            'subtotal': subtotal,
+        }
+    else:
+        context = {
+            'products': products,
+        }
 
     prod = PRODUCT.objects.filter(subcategory=subcategory)
     return render(request, 'Shop/all_product.html', locals())
