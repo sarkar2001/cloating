@@ -85,31 +85,34 @@ def aboutus(request):
     return render(request, 'aboutus.html', context)
 
 
-
 def contact(request):
     user = request.user
     contact_us = ContactUs.objects.all()
+
     if user.is_authenticated:
-        if request.method == 'POST' or request.method == 'post':
-            user = user
+        if request.method == 'POST':
             name = request.POST.get('name')
             email = request.POST.get('email')
             subject = request.POST.get('subject')
-            massage = request.POST.get('massage')
+            message = request.POST.get('message')
 
-            obj = UserMassage.objects.create(user=user,
+            # Fix the typo in the model name from UserMassage to UserMessage
+            obj = UserMessage.objects.create(user=user,
                                              name=name,
                                              email=email,
                                              subject=subject,
-                                             massage=massage,
+                                             message=message,
                                              )
             obj.save()
-            messages.success(request, f'Successfully Done')
+            messages.success(request, 'Message sent successfully')  # Display success message
+            # Redirect to the same page after form submission
             return redirect(request.META.get('HTTP_REFERER'))
-        context = {
-            'contact_us': contact_us,
-        }
-    return render(request, 'contact.html', locals())
+
+    # Move context creation outside the authentication block
+    context = {
+        'contact_us': contact_us,
+    }
+    return render(request, 'contact.html', context)
 
 
 def allpro(request):
