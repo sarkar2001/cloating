@@ -8,7 +8,10 @@ from .models import *
 # admin.site.register(Cart)
 # admin.site.register(Subsubcategory)
 # admin.site.register(Variation)
+admin.site.register(BillingInfo)
 admin.site.register(Order)
+admin.site.register(ProductSize)
+admin.site.register(ProductColor)
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['id','title']
@@ -23,7 +26,16 @@ class PRODUCTAdmin(admin.ModelAdmin):
 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
-    list_display = ['id','user','product','quantity']
+
+    list_display = ['id', 'user', 'product', 'get_size', 'get_color', 'quantity']
+
+    def get_size(self, obj):
+        return obj.variation.size if obj.variation else "N/A"
+    get_size.short_description = 'Size'
+
+    def get_color(self, obj):
+        return obj.variation.color if obj.variation else "N/A"
+    get_color.short_description = 'Color'
 
 @admin.register(Subsubcategory)
 class SubsubcategoryAdmin(admin.ModelAdmin):
