@@ -41,8 +41,8 @@
                                 <td class="li-product-thumbnail"><a href="#"><img style="height:80px; width:90px; " src="{{i.product.image1.url}}" alt="Li's Product Image"></a></td>
                                 <td class="li-product-name"><a href="#">{{i.product.title}}</a></td>
                                 <td class="li-product-price"><span class="amount">{{i.product.price}}</span></td>
-                                <td class="li-product-size">{{i.product.size}}</td> <!-- Display size -->
-                                <td class="li-product-color">{{i.product.color}}</td> <!-- Display color -->
+                                <td class="li-product-size">{{ i.variation.get_size_display }}</td> <!-- Display size -->
+                                <td class="li-product-color">{{ i.variation.get_color_display }}</td> <!-- Display color -->
                                 <td class="quantity">
                                     <label>Quantity</label>
                                     <div class="cart-plus-minus">
