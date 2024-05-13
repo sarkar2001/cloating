@@ -135,98 +135,100 @@
                     </div>
                 </form>
             </div>
-            <div class="col-lg-6 col-12">
-                <div class="your-order">
-                    <div style="text-align: center;">
-                        <h3>Your Order</h3>
-                    </div>
-                    <div class="your-order-table table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th class="cart-product-name">Product</th>
-                                <th class="cart-product-name"> Delivery Charge : {{delivery_charge}}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for i in all_cart %}
-                            <tr class="cart_item">
-                                <td class="cart-product-name"> {{i.product.title}}<strong class="product-quantity"> ×
-                                    {{i.quantity}}</strong></td>
-                                 <td class="cart-product-total"><span class="amount">{{ i.variation.get_size_display }}</span>
-                                </td>
-                                 <td class="cart-product-total"><span class="amount">{{ i.variation.get_color_display }}</span>
-                                </td>
-                                <td class="cart-product-total"><span class="amount">{% widthratio i.product.price 1 i.quantity %}</span>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                            </tbody>
-                            <tfoot>
-                            <tr class="cart-subtotal">
-                                <th>Cart Subtotal</th>
-                                <td><span class="amount">{{subtotal}}</span></td>
-                            </tr>
-                            <tr class="order-total">
-                                <th>Order Total</th>
-                                <td><strong><span class="amount">{{total}}</span></strong></td>
-                            </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                    <form action="{% url 'sslcommerz' %}" method="POST">
-                        {% csrf_token %}
-                        <div class="cart-page-total">
-
-                            {% if messages %}
-                            <ul class="messages">
-                                {% for message in messages %}
-                                <li style="color:red;padding:0px;">
-                                    {{ message}}
-                                </li>
+    <div class="col-lg-6 col-12">
+                    <div class="your-order">
+                        <div style="text-align: center;">
+                            <h3>Your Order</h3>
+                        </div>
+                        <div class="your-order-table table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="cart-product-name">Product</th>
+                                    <th class="cart-product-name"> Delivery Charge : {{delivery_charge}}</th>
+                                    <th class="cart-product-name"></th>
+                                    <th class="cart-product-name"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for i in all_cart %}
+                                <tr class="cart_item">
+                                    <td class="cart-product-name"> {{i.product.title}}<strong class="product-quantity"> ×
+                                        {{i.quantity}}</strong></td>
+                                     <td class="cart-product-total"><span class="amount">{{ i.variation.get_size_display }}</span>
+                                    </td>
+                                     <td class="cart-product-total"><span class="amount">{{ i.variation.get_color_display }}</span>
+                                    </td>
+                                    <td class="cart-product-total"><span class="amount">{% widthratio i.product.price 1 i.quantity %}</span>
+                                    </td>
+                                </tr>
                                 {% endfor %}
-                            </ul>
-                            {% endif %}
-                            <div class="payment-method">
-                                <div class="payment-accordion">
-                                    <div id="accordion">
-                                        <div class="card">
-                                            <div class="card-header" id="#payment-1">
-                                                <h5 class="panel-title">
-                                                    <a class="" data-toggle="collapse" data-target="#collapseOne"
-                                                       aria-expanded="true" aria-controls="collapseOne">
-                                                        Direct Bank Transfer.
-                                                    </a>
-                                                </h5>
+                                </tbody>
+                                <tfoot>
+                                <tr class="cart-subtotal">
+                                    <th>Cart Subtotal</th>
+                                    <td><span class="amount">{{subtotal}}</span></td>
+                                </tr>
+                                <tr class="order-total">
+                                    <th>Order Total</th>
+                                    <td><strong><span class="amount">{{total}}</span></strong></td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <form action="{% url 'sslcommerz' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="cart-page-total">
+
+                                {% if messages %}
+                                <ul class="messages">
+                                    {% for message in messages %}
+                                    <li style="color:red;padding:0px;">
+                                        {{ message}}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                                <div class="payment-method">
+                                    <div class="payment-accordion">
+                                        <div id="accordion">
+                                            <div class="card">
+                                                <div class="card-header" id="#payment-1">
+                                                    <h5 class="panel-title">
+                                                        <a class="" data-toggle="collapse" data-target="#collapseOne"
+                                                           aria-expanded="true" aria-controls="collapseOne">
+                                                            Direct Bank Transfer.
+                                                        </a>
+                                                    </h5>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <input style="height: 15px; width: 15px;" class="form-check-input"
+                                                       type="checkbox"
+                                                       name="deliver" id="inlineCheckbox1" value="1">
+                                                <label class="form-check-label" for="inlineCheckbox1">Cash On
+                                                    Delivery</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input style="height: 15px; width: 15px;" class="form-check-input"
+                                                       type="checkbox"
+                                                       name="deliver" id="inlineCheckbox2" value="2">
+                                                <label class="form-check-label" for="inlineCheckbox2">SSL Commerz</label>
                                             </div>
 
                                         </div>
 
-                                        <div class="form-check form-check-inline">
-                                            <input style="height: 15px; width: 15px;" class="form-check-input"
-                                                   type="checkbox"
-                                                   name="deliver" id="inlineCheckbox1" value="1">
-                                            <label class="form-check-label" for="inlineCheckbox1">Cash On
-                                                Delivery</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input style="height: 15px; width: 15px;" class="form-check-input"
-                                                   type="checkbox"
-                                                   name="deliver" id="inlineCheckbox2" value="2">
-                                            <label class="form-check-label" for="inlineCheckbox2">SSL Commerz</label>
-                                        </div>
-
                                     </div>
-
-                                </div>
-                                <div class="order-button-payment">
-                                    <input value="Place order" type="submit">
+                                    <div class="order-button-payment">
+                                        <input value="Place order" type="submit">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
-            </div>
         </div>
     </div>
   </div>
