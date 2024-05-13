@@ -14,13 +14,14 @@ from django.core.paginator import Paginator
 def product(request, id):
     user = request.user
     subcategory = SubCategory.objects.get(id=id)
-    subsubcategory = Subsubcategory.objects.get(id=id)
+    # subsubcategory = Subsubcategory.objects.get(id=id)
     category = Category.objects.all()
     products = PRODUCT.objects.all()
-    length = len(Cart.objects.filter(user=user))
-    cart_details = Cart.objects.filter(user=user)[:2]
-    all_cart = Cart.objects.filter(user=user)
-    subtotal = sum(item.product.price * item.quantity for item in all_cart)
+    if user.is_authenticated:
+        length = len(Cart.objects.filter(user=user))
+        cart_details = Cart.objects.filter(user=user)[:2]
+        all_cart = Cart.objects.filter(user=user)
+        subtotal = sum(item.product.price * item.quantity for item in all_cart)
     paginator = Paginator(products, 3)
     page_number = request.GET.get('page', 1)
     products = paginator.get_page(page_number)
@@ -312,11 +313,11 @@ def fail(request):
     return render(request, 'Shop/fail.html')
 
 
-def Customer(request):
+def billinginfo(request,id):
+
     if request.method == 'POST':
         firstname = request.POST.get('firstname')
         lastname = request.POST.get('lastname')
-        company_name= request.POST.get('company_name')
         address = request.POST.get('address')
         city = request.POST.get('city')
         country = request.POST.get('country')
@@ -324,10 +325,9 @@ def Customer(request):
         email = request.POST.get('email')
         phone = request.POST.get('phone')
 
-        customer = Customer(
+        billinginfo = BillingInfo.objects.create(
             firstname=firstname,
             lastname=lastname,
-            company_name=company_name,
             address=address,
             city=city,
             country=country,
@@ -335,7 +335,7 @@ def Customer(request):
             email=email,
             phone=phone
         )
-        customer.save()
+        billinginfo.save()
 
         # Redirect to a success page or do something else
         return redirect('order_success')
