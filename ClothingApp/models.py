@@ -99,46 +99,26 @@ class Cart(models.Model):
 
 
 
-
-
-
-
-class Customer(models.Model):
+class BillingInfo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
-    company_name= models.CharField(max_length=100)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
     postcode = models.CharField(max_length=20)
     email = models.EmailField()
     phone = models.CharField(max_length=20)
-
     def __str__(self):
-        return self.first_name
-
-
+        return self.firstname
 
 class Order(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField(auto_now=False, auto_now_add=True)
+    billinginfo = models.ForeignKey(BillingInfo, on_delete=models.CASCADE)
+    date = models.DateField(auto_now=False, auto_now_add=True, null=True, blank=True)
     status = models.CharField(max_length=100, default="pending")
     paymentSystem = models.CharField(max_length=100, default="Cash On Delivery")
     total = models.PositiveIntegerField(blank=True, null=True)
+    is_ordered = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.customer.first_name
-
-
-class OrderItems(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    size = models.CharField(max_length=5, blank=True, null=True)
-    color = models.CharField(max_length=5, blank=True, null=True)
-
-    def order_subtotal(self):
-        return self.quantity * self.product.price
+        return self.billinginfo.firstname
