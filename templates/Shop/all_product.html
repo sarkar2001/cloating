@@ -612,18 +612,28 @@
                                 <div class="col-lg-6 col-md-6">
                                     <p>Showing 1-12 of 13 item(s)</p>
                                 </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <ul class="pagination-box">
-                                        <li><a href="#" class="Previous"><i class="fa fa-chevron-left"></i> Previous</a>
-                                        </li>
-                                        <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li>
-                                            <a href="#" class="Next"> Next <i class="fa fa-chevron-right"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                  <div class="col-lg-6 col-md-6">
+                                        <ul class="pagination-box">
+                                            {% if products.has_previous %}
+                                                <li><a href="?page={{ products.previous_page_number }}" class="Previous"><i class="fa fa-chevron-left"></i> Previous</a></li>
+                                            {% endif %}
+                                            {% for num in products.paginator.page_range %}
+<!--                                                {% if  products.number == num %}-->
+<!--                                                    <li class="active"><a href="#">{{ num }}</a></li>-->
+<!--                                                {% else %}-->
+<!--                                                    <li><a href="?page={{ num }}">{{ num }}</a></li>-->
+<!--                                                {% endif %}-->
+                                                 {% for num in page_obj.paginator.page_range %}
+                                                    <li class="{% if num == page_obj.number %}active{% endif %}">
+                                                        <a href="?page={{ num }}">{{ num }}</a>
+                                                    </li>
+                                                {% endfor %}
+                                            {% endfor %}
+                                            {% if products.has_next %}
+                                                <li><a href="?page={{ products.next_page_number }}" class="Next"> Next <i class="fa fa-chevron-right"></i></a></li>
+                                            {% endif %}
+                                        </ul>
+                                  </div>
                             </div>
                         </div>
                     </div>

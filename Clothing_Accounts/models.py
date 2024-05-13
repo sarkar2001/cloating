@@ -45,7 +45,7 @@ class ContactUs(models.Model):
     support_mail = models.EmailField(max_length=30)
 
     def __str__(self):
-        return f"{self.email}"
+        return self.title
 
 class UserMessage(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
