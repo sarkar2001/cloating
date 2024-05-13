@@ -27,15 +27,16 @@
                                <div id="cate-toggle" class="category-menu-list">
                                     <ul>
 
-                                     {% for i in category %}
+                                     {% for category in category %}
                                         <li>
-                                            <a href="{% url 'product' i.id %}" role="button" >{{ i.title }}</a>
+                                            <a href="{% url 'product' category.id %}" role="button" >{{ category.title }}</a>
                                             <!-- Check if subcategories exist -->
-                                            {% for b in i.subcategory_set.all %}
+                                            {% for subcate in category.subcategory.all %}
                                                 <ul>
+                                                    {% if category.subcategory.all %}
                                                     <li>
-                                                        <a href="{% url 'product' b.id %}">{{ b.name}}</a>
-                                                        {% for e in b.subsubcategory_set.all %}
+                                                        <a href="{% url 'product' subcate.id %}">{{ subcate.name}}</a>
+                                                        {% for e in subcate.subsubcategory.all %}
                                                             <ul>
                                                                 <li>
                                                                     <a href="{% url 'product' e.id %}">{{ e.name}}</a>
@@ -43,6 +44,7 @@
                                                             </ul>
                                                         {% endfor %}
                                                     </li>
+                                                    {% endif %}
                                                 </ul>
                                             {% endfor %}
                                         </li>
