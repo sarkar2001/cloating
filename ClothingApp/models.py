@@ -79,8 +79,8 @@ class Variation(models.Model):
 
     )
     product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
-    size = models.CharField(choices=sizetype,max_length=10,null=True,blank=True)
-    color = models.CharField(choices=range,max_length=10,null=True,blank=True)
+    size = models.CharField(choices=sizetype,max_length=250,null=True,blank=True)
+    color = models.CharField(choices=range,max_length=250,null=True,blank=True)
     stock = models.IntegerField(default=0,null=True)
 
     def is_out_of_stock(self):
