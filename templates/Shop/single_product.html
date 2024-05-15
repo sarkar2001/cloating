@@ -62,7 +62,7 @@
                          <!-- Add dropdown menus for color and size -->
                         <form action="{% if user.is_authenticated %}{% url 'addtocart' single_product.id %}
                         {% else %}
-                        {% url 'Log_in' %}{% endif %}" method="post" class="cart-quantity">
+                        {% url 'Log_in' %}{% endif %}" method="post">
                             {% csrf_token %}
                             <div class="product-variants">
                                 <div class="row">
@@ -93,7 +93,7 @@
                                 </div>
                             </div>
 
-                            <div class="single-add-to-cart">
+                            <div class="cart-quantity" >
                                 <div class="quantity">
                                     <label>Quantity</label>
                                     <div class="cart-plus-minus">
@@ -105,6 +105,7 @@
                                 <button class="add-to-cart" type="submit">Add to cart</button>
                                 <button class="add-to-cart" type="submit">Shop Now</button>
                             </div>
+
                         </form>
                         <!-- End of add-to-cart form -->
                                     <div class="product-additional-info">
