@@ -110,62 +110,6 @@ def addtocart(request, product_id):
 
     return redirect('cart')
 
-
-
-def add_to_cart(request, id):
-    prod = PRODUCT.objects.get(id=id)
-    user = request.user
-
-
-    # if prod:
-    #     if user.is_authenticated:
-    #         try:
-    #             cart = Cart.objects.get(Q(user=user) & Q(product=prod))
-    #             if cart:
-    #                 cart.quantity += 1
-    #                 cart.save()
-    #                 return redirect(request.META['HTTP_REFERER'])
-    #         except:
-    #             new_cart = Cart.objects.create(user=user, product=prod)
-    #             new_cart.save()
-    #             return redirect(request.META['HTTP_REFERER'])
-    #     else:
-    #         return redirect('Log_in')
-    # return redirect(request.META['HTTP_REFERER'])
-
-    if prod:
-        if user.is_authenticated:
-            if request.method == 'POST':
-                # Get variation details from the form
-                variation_id = request.POST.get('variation')
-                size = request.POST.get('size')
-                color = request.POST.get('color')
-                quantity = int(request.POST.get('quantity', 1))
-
-                # Fetch the variation object
-                # variation = Variation.objects.get(id=variation_id)
-
-                # Check if the item already exists in the cart
-                cart_item = Cart.objects.filter(
-                    Q(user=user) & Q(product=prod) & Q(size=size) & Q(color=color)).first()
-
-                if cart_item:
-                    # If item already exists, update the quantity
-                    cart_item.quantity += quantity
-                    cart_item.save()
-                else:
-                    # If item doesn't exist, create a new cart entry
-                    Cart.objects.create(user=user, product=prod, size=size, color=color,
-                                        quantity=quantity)
-
-            return redirect(request.META.get('HTTP_REFERER', '/'))
-        else:
-            return redirect('Accounts/Log_in.html')  # Redirect to login page if user is not authenticated
-    else:
-        return redirect('home.html')  # Redirect to home page if product does not exist
-
-
-
 def remove_cart(request, id):
     remove_cart = Cart.objects.get( id = id)
     remove_cart.delete()
