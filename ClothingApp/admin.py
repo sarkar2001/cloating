@@ -22,7 +22,7 @@ class SubCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(PRODUCT)
 class PRODUCTAdmin(admin.ModelAdmin):
-    list_display = ['id','title','category','subcategory','subsubcategory', 'condition','price','is_hot_deal']
+    list_display = ['id','title','product_category', 'condition','price','is_hot_deal']
 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
@@ -37,7 +37,7 @@ class CartAdmin(admin.ModelAdmin):
         return obj.variation.color if obj.variation else "N/A"
     get_color.short_description = 'Color'
 
-@admin.register(Subsubcategory)
+@admin.register(ProductCategory)
 class SubsubcategoryAdmin(admin.ModelAdmin):
     list_display = ['id','name','subcategory']
 
