@@ -69,14 +69,24 @@
                             <ul class="ht-menu">
                                 <!-- Begin Setting Area -->
                                 <li>
-                                    <div class="ht-setting-trigger"><span>Account</span></div>
+                                  <div class="ht-setting-trigger">
+                                        {% if user.is_authenticated %}
+                                            <span>{{ user.username }}</span>
+                                        {% else %}
+                                            <a href="{% url 'Log_in' %}">Sign In</a>
+                                        {% endif %}
+                                    </div>
                                     <div class="setting ht-setting">
                                         <ul class="ht-setting-list">
-                                            <li><a href="{% url 'Log_in' %}">Sign In</a></li>
-                                            <li><a href="{% url 'Registration' %}">Sign Up</a></li>
-                                            <li><a href="{% url 'checkout' %}">Checkout</a></li>
+                                            {% if user.is_authenticated %}
+                                                <li><a href="{% url 'log_out' %}">Logout</a></li>
+                                            {% else %}
+                                                <li><a href="{% url 'Log_in' %}">Login</a></li>
+                                                <li><a href="{% url 'Registration' %}">Sign Up</a></li>
+                                            {% endif %}
                                         </ul>
                                     </div>
+
                                 </li>
                                 <!-- Setting Area End Here -->
                                 <!-- Begin Currency Area -->
@@ -121,7 +131,7 @@
                     <div class="col-lg-3">
                         <div class="logo pb-sm-30 pb-xs-30">
                             <a href="/">
-                                <img src="{% static 'images/menu/logo/1.jpg' %}" alt="">
+                                <img style="height:60px;width:200px" src="{% static 'images/menu/logo/3.png' %}" alt="">
                             </a>
                         </div>
                     </div>
@@ -242,7 +252,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-6">
                         <div class="footer-logo">
-                            <img src="{% static 'images/menu/logo/1.jpg' %}" alt="Footer Logo">
+                            <img style="height:60px;width:200px" src="{% static 'images/menu/logo/3.png' %}" alt="Footer Logo">
                             <p class="info">
                                 We are a team of designers and developers that create high quality websites.
                             </p>
