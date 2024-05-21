@@ -10,7 +10,7 @@
                     <div class="breadcrumb-content">
                         <ul>
                             <li><a href="index.html">Home</a></li>
-                            <li class="active">Shop List Left Sidebar</li>
+                            <li class="active">{{ category_name }}</li>
                         </ul>
                     </div>
                 </div>
@@ -558,7 +558,7 @@
                                     <div id="list-view" class="tab-pane fade product-list-view active show" role="tabpanel">
                                         <div class="row">
                                             <div class="col">
-                                                {% for i in prod %}
+                                                {% for i in products %}
                                                 <div class="row product-layout-list">
                                                     <div class="col-lg-3 col-md-5 ">
                                                         <div class="product-image">
