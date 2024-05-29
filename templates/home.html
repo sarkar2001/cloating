@@ -3,6 +3,38 @@
 {% block title %} home {% endblock title%}
 {% block body %}
 
+<style>
+        .category-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 5px;
+        }
+
+        .arrow-icon {
+            cursor: pointer;
+            margin-right: 10px;
+            display: inline-block;
+            transition: transform 0.3s;
+            font-size: 18px;
+            color: #ffc107;
+        }
+
+        .sub-list {
+            margin-left: 20px;
+            display: none; /* Initially hidden */
+        }
+        .cat-list {
+            margin-left: 20px;
+            display: none; /* Initially hidden */
+        }
+
+        .arrow-icon.down {
+            transform: rotate(90deg); /* Rotate arrow icon */
+        }
+    </style>
          <div class="slider-with-banner">
                 <div class="container">
                     {% if messages %}
@@ -29,58 +61,83 @@
 
                                      {% for category in category %}
                                         <li>
-                                            <a href="{% url 'product' category.id %}" role="button" >{{ category.title }}</a>
-                                            <!-- Check if subcategories exist -->
-                                            {% for subcate in category.subcategory.all %}
+                                            <div class="category-container">
+                                                <a href="{% url 'category_details' category.id %}" role="button" >{{ category.title }}</a>
+                                                <i class="arrow-icon" onclick="toggleListCategory(this)">&#9654;</i> <!-- Right arrow icon -->
+                                            </div>
+
+
+
+                                            <div class="cat-list">
+                                                {% for subcate in category.subcategory_set.all %}
                                                 <ul>
-                                                    {% if category.subcategory.all %}
+
                                                     <li>
-                                                        <a href="{% url 'product' subcate.id %}">{{ subcate.name}}</a>
-                                                        {% for e in subcate.subsubcategory.all %}
+                                                        <!-- {% if category.subcategory_set.all %} -->
+                                                        <div class="category-container">
+                                                            <a href="{% url 'sub_category_details' subcate.id %}">{{ subcate.name}}</a>
+                                                            {% if subcate.productcategory_set.all %}
+                                                            <i class="arrow-icon" onclick="toggleList(this)">&#9654;</i> <!-- Right arrow icon -->
+                                                            {% endif %}
+                                                        </div>
+
+                                                        <!-- {% endif %} -->
+                                                        <div class="sub-list">
+                                                        {% for e in subcate.productcategory_set.all %}
                                                             <ul>
                                                                 <li>
-                                                                    <a href="{% url 'product' e.id %}">{{ e.name}}</a>
+                                                                    <a href="{% url 'product_category_details' e.id %}">{{ e.name}}</a>
                                                                 </li>
                                                             </ul>
                                                         {% endfor %}
+                                                        </div>
                                                     </li>
-                                                    {% endif %}
+
                                                 </ul>
-                                            {% endfor %}
+                                                {% endfor %}
+                                                </div>
+
                                         </li>
                                     {% endfor %}
 
+<!--                                     <p>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Button with data-target
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+  </div>
+</div> -->
+                                      <!-- {% for i in category %}
+                                        <li>
 
-<!--                                      {% for i in category %}-->
-<!--                                        <li>-->
-<!--                                            <button class="category-btn" data-toggle="collapse"  data-target="#category{{ i.id }}">{{ i.title }}</button>-->
-<!--                                            <ul id="category{{ i.id }}" class="collapse">-->
-<!--                                                {% for b in i.subcategory_set.all %}-->
-<!--                                                    <li>-->
+                                            <button class="btn btn-primary" type="button" data-toggle="collapse"  data-target="#category{{ i.id }}">{{ i.title }}</button>
 
-<!--                                                        {% if b.subsubcategory_set.all %}-->
-<!--                                                            <button class="subcategory-btn" data-toggle="collapse" data-target="#subcategory{{ b.id }}">{{ b.name }}</button>-->
-<!--                                                        {% else %}-->
-<!--                                                        <a href="{% url 'product' b.id %}">-->
-<!--                                                            <button class="subcategory-btn" data-toggle="collapse" data-target="#subcategory{{ b.id }}">{{ b.name }}</button>-->
-<!--                                                        </a>-->
+                                            <ul class="collapse" id="category{{ i.id }}" >
+                                                {% for b in i.subcategory_set.all %}
+                                                    <li>
 
-<!--                                                        {% endif %}-->
+                                                        <button class="subcategory-btn" data-toggle="collapse" data-target="#subcategory{{ b.id }}">{{ b.name }}</button>
 
-<!--                                                        <ul id="subcategory{{ b.id }}" class="collapse">-->
-<!--                                                            {% for e in b.subsubcategory_set.all %}-->
-<!--                                                                <li>-->
-<!--                                                                   <a href="{% url 'product' e.id %}" >-->
-<!--                                                                      <button class="subsubcategory-btn">{{ e.name }}</button></a>-->
+                                                        <ul id="subcategory{{ b.id }}" class="collapse">
+                                                            {% for e in b.subsubcategory_set.all %}
+                                                                <li>
+                                                                   <a href="{% url 'product' e.id %}" >
+                                                                      <button class="subsubcategory-btn">{{ e.name }}</button></a>
 
-<!--                                                                </li>-->
-<!--                                                            {% endfor %}-->
-<!--                                                        </ul>-->
-<!--                                                    </li>-->
-<!--                                                {% endfor %}-->
-<!--                                            </ul>-->
-<!--                                        </li>-->
-<!--                                    {% endfor %}-->
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </li>
+                                                {% endfor %}
+
+                                            </ul>
+
+                                        </li>
+
+                                      {% endfor %} -->
                                         <li class="rx-parent">
                                             <a class="rx-default">More Categories</a>
                                             <a class="rx-show">Less Categories</a>
@@ -231,8 +288,7 @@
                             <div class="row">
 
                                 <div class="product-active owl-carousel">
-                                    {% for b in i.product_set.all %}
-
+                                    {% for b in i.get_product_list %}
                                             <div class="col-lg-12">
                                                 <!-- single-product-wrap start -->
                                                 <div class="single-product-wrap">
@@ -576,4 +632,9 @@
          <!--Trending Product end here -->
 
 
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 {% endblock body %}

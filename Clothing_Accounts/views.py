@@ -59,7 +59,13 @@ def Log_in(request):
         name = request.POST.get('name')
         password = request.POST.get('password')
         user= authenticate(username=name, password=password)
-        if user:
+        
+        if user and user.is_staff:
+            login(request,user)
+            messages.success(request, "You are Successfully logged in!")
+            return redirect('authority:authority_admin')
+        
+        elif user:
             login(request, user)
             messages.success(request, "You are Successfully logged in!")
             return redirect('home')

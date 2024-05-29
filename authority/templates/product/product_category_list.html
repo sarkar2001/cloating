@@ -1,0 +1,64 @@
+{% extends 'authority_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} {{title}} {% endblock title %}
+
+
+{% block body %}
+<div class="bg-light rounded h-100 p-4">
+    <h6 class="mb-4">Product Category List</h6>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-success" href="{% url "authority:add_product_category" %}" role="button"><i class="fa-solid fa-circle-plus me-2"></i>Add Product Category</a>
+      </div>
+    <div class="col-md-6 mb-4">
+      <form class="d-flex">
+        {{category_list.form.name}}
+        <button class="btn btn-primary ms-2" type="submit">Search</button>
+      </form>
+    </div>
+    
+    <table class="table table table-hover ">
+        <thead class="table-dark">
+            <tr>
+              <th scope="col">Sl</th>
+              <th scope="col">Product Category Name</th>
+              <th scope="col">Sub-Category</th>
+              <th scope="col">Created At</th>
+              <th scope="col">Updated At</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody> 
+            {% if category_list %} 
+                {% for category in category_list.qs %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td> 
+                      {% if category.name %}
+                        {{category.name}}
+                      {% else %}
+                        N/A
+                      {% endif %}
+                    </td>
+                    <td> 
+                      {% if category.subcategory %}
+                        {{category.subcategory}}
+                      {% else %}
+                        N/A
+                      {% endif %}
+                    </td>
+                    <td>{{category.created_at}}</td>
+                    <td>{{category.updated_at}}</td>
+                    <td>
+                        <a class="btn btn-success" href="{% url "authority:update_product_category" category.id %}" role="button">Edit</a>
+                        
+                    </td>
+                  </tr>
+                {% endfor %}     
+            {% endif %}
+            </tbody>      
+      </table>
+</div>
+
+{% endblock body %}

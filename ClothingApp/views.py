@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.db.models import Q
 from django.contrib import messages
@@ -11,11 +11,130 @@ from django.core.paginator import Paginator
 # Create your views here.
 
 
+def category_details(request, id):
+    user = request.user
+    products = []
+    category_name = ""
+    try:
+        category = Category.objects.get(id=id)
+    except Exception as e:
+        category = None
+    if category:
+        all_products = PRODUCT.objects.filter(product_category__subcategory__category=category)
+        paginator = Paginator(all_products, 3)
+        page_number = request.GET.get('page', 1)
+        products = paginator.get_page(page_number)
+        category_name = category.title
+
+    if user.is_authenticated:
+        length = len(Cart.objects.filter(user=user))
+        cart_details = Cart.objects.filter(user=user)[:2]
+        all_cart = Cart.objects.filter(user=user)
+        subtotal = sum(item.product.price * item.quantity for item in all_cart)
+
+    if user.is_authenticated:
+        context = {
+            'products': products,
+            'length': length,
+            'cart_details': cart_details,
+            'all_cart': all_cart,
+            'subtotal': subtotal,
+        }
+    else:
+        context = {
+            'products': products,
+            'category_name': category_name,
+        }
+
+    # prod = PRODUCT.objects.filter(product_category=subcategory)
+    return render(request, 'Shop/all_product.html', locals())
+
+
+def sub_category_details(request, id):
+    user = request.user
+    products = []
+    category_name = ""
+    try:
+        subcategory = SubCategory.objects.get(id=id)
+    except Exception as e:
+        subcategory = None
+    if subcategory:
+        all_products = PRODUCT.objects.filter(product_category__subcategory=subcategory)
+        paginator = Paginator(all_products, 3)
+        page_number = request.GET.get('page', 1)
+        products = paginator.get_page(page_number)
+        category_name = subcategory.name
+
+    if user.is_authenticated:
+        length = len(Cart.objects.filter(user=user))
+        cart_details = Cart.objects.filter(user=user)[:2]
+        all_cart = Cart.objects.filter(user=user)
+        subtotal = sum(item.product.price * item.quantity for item in all_cart)
+
+    if user.is_authenticated:
+        context = {
+            'products': products,
+            'length': length,
+            'cart_details': cart_details,
+            'all_cart': all_cart,
+            'subtotal': subtotal,
+        }
+    else:
+        context = {
+            'products': products,
+            'category_name': category_name,
+        }
+
+    # prod = PRODUCT.objects.filter(product_category=subcategory)
+    return render(request, 'Shop/all_product.html', locals())
+
+
+def product_category_details(request, id):
+    user = request.user
+    products = []
+    category_name = ""
+    try:
+        productcategory = ProductCategory.objects.get(id=id)
+    except Exception as e:
+        productcategory = None
+    if productcategory:
+        all_products = PRODUCT.objects.filter(product_category=productcategory)
+        paginator = Paginator(all_products, 3)
+        page_number = request.GET.get('page', 1)
+        products = paginator.get_page(page_number)
+        category_name = productcategory.name
+
+    if user.is_authenticated:
+        length = len(Cart.objects.filter(user=user))
+        cart_details = Cart.objects.filter(user=user)[:2]
+        all_cart = Cart.objects.filter(user=user)
+        subtotal = sum(item.product.price * item.quantity for item in all_cart)
+
+    if user.is_authenticated:
+        context = {
+            'products': products,
+            'length': length,
+            'cart_details': cart_details,
+            'all_cart': all_cart,
+            'subtotal': subtotal,
+        }
+    else:
+        context = {
+            'products': products,
+            'category_name': category_name,
+        }
+
+    # prod = PRODUCT.objects.filter(product_category=subcategory)
+    return render(request, 'Shop/all_product.html', locals())
+
+
 def product(request, id):
     user = request.user
     subcategory = SubCategory.objects.get(id=id)
     # subsubcategory = Subsubcategory.objects.get(id=id)
     category = Category.objects.all()
+    # subcategory = SubCategory.objects.all()
+    product_category = ProductCategory.objects.all()
     products = PRODUCT.objects.all()
     if user.is_authenticated:
         length = len(Cart.objects.filter(user=user))
@@ -38,7 +157,7 @@ def product(request, id):
             'products': products,
         }
 
-    prod = PRODUCT.objects.filter(subcategory=subcategory)
+    prod = PRODUCT.objects.filter(product_category=subcategory)
     return render(request, 'Shop/all_product.html', locals())
 
 
@@ -70,9 +189,6 @@ def single_product(request, id):
         }
 
     return render(request, 'Shop/single_product.html', context)
-
-
-
 
 
 @login_required
@@ -110,8 +226,9 @@ def addtocart(request, product_id):
 
     return redirect('cart')
 
+
 def remove_cart(request, id):
-    remove_cart = Cart.objects.get( id = id)
+    remove_cart = Cart.objects.get(id=id)
     remove_cart.delete()
     return redirect(request.META['HTTP_REFERER'])
 
@@ -161,9 +278,9 @@ def minus_cart(request, id):
     return redirect(request.META['HTTP_REFERER'])
 
 
-
-def brand(request,id):
+def brand(request, id):
     return render(request, 'Shop/branding_page.html', locals())
+
 
 def checkout(request):
     user = request.user
@@ -217,7 +334,8 @@ def sslcommerz(request):
 
         if del_cost == '2':
 
-            sslcz = SSLCOMMERZ({'store_id': 'niyam6412dc52e1e89', 'store_pass': 'niyam6412dc52e1e89@ssl', 'issandbox': True})
+            sslcz = SSLCOMMERZ(
+                {'store_id': 'niyam6412dc52e1e89', 'store_pass': 'niyam6412dc52e1e89@ssl', 'issandbox': True})
             data = {
                 'total_amount': total,
                 'currency': "BDT",
@@ -243,6 +361,7 @@ def sslcommerz(request):
         else:
             return render(request, 'Shop/success.html')
 
+
 @csrf_exempt
 def success(request):
     cart = Cart.objects.filter()
@@ -252,13 +371,13 @@ def success(request):
 
     return render(request, 'Shop/success.html')
 
+
 @csrf_exempt
 def fail(request):
     return render(request, 'Shop/fail.html')
 
 
-def billinginfo(request,id):
-
+def billinginfo(request, id):
     if request.method == 'POST':
         firstname = request.POST.get('firstname')
         lastname = request.POST.get('lastname')
@@ -269,7 +388,7 @@ def billinginfo(request,id):
         email = request.POST.get('email')
         phone = request.POST.get('phone')
 
-        billinginfo = BillingInfo.objects.create(
+        billinginfo = BillingAddress.objects.create(
             firstname=firstname,
             lastname=lastname,
             address=address,

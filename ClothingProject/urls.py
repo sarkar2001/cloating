@@ -5,6 +5,8 @@ from django.conf.urls.static import static
 from customadmin import urls as customadmin_urls
 
 
+from authority import urls as authority_urls
+
 
 
 urlpatterns = [
@@ -13,6 +15,7 @@ urlpatterns = [
     path('dashboard/',include('customadmin.urls')),
     path('', include('Clothing_Accounts.urls')),
     path('ClothingApp/', include('ClothingApp.urls')),
+    path('authority/', include(authority_urls)),
 
 
 ]

@@ -1,0 +1,57 @@
+{% extends 'authority_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} {{title}} {% endblock title %}
+
+
+{% block body %}
+<div class="bg-light rounded h-100 p-4">
+    <h6 class="mb-4">Banner Image List</h6>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-success" href="{% url "authority:add_banner_image" %}" role="button"><i class="fa-solid fa-circle-plus me-2"></i>Add Slider</a>
+    </div>
+    <div class="col-md-6 mb-4">
+      <form class="d-flex">
+        {{banner_list.form.title}}
+        <button class="btn btn-primary ms-2" type="submit">Search</button>
+      </form>
+    </div>
+    
+    
+    <table class="table table table-hover ">
+        <thead class="table-dark">
+            <tr>
+              <th scope="col">Sl</th>
+              <th scope="col">Title</th>
+              <th scope="col">Sale Offer</th>
+              <th scope="col">Starting Price</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody> 
+            {% if banner_list %} 
+                {% for banner in banner_list.qs %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td> 
+                      {% if banner.title %}
+                        {{banner.title}}
+                      {% else %}
+                        N/A
+                      {% endif %}
+                    </td>
+                    <td>{{banner.sale_offer}}</td>
+                    <td>{{banner.starting_price}}</td>
+                    <td>
+                        <a class="btn btn-success" href="{% url "authority:update_banner_image" banner.id %}" role="button">Edit</a>
+                        
+                    </td>
+                  </tr>
+                {% endfor %}     
+            {% endif %}
+            </tbody>      
+      </table>
+</div>
+
+{% endblock body %}

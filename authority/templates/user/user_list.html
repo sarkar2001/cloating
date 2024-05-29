@@ -1,0 +1,56 @@
+{% extends 'authority_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} {{title}} {% endblock title %}
+
+
+{% block body %}
+<div class="bg-light rounded h-100 p-4">
+    <h6 class="mb-4">User List</h6>
+    <div class="col-md-6 mb-4">
+      <form class="d-flex">
+        {{user_list.form.search}}
+        <button class="btn btn-primary ms-2" type="submit">Search</button>
+      </form>
+    </div>
+    
+    <table class="table table table-hover ">
+        <thead class="table-dark">
+            <tr>
+              <th scope="col">Sl</th>
+              <th scope="col">Email</th>
+              <th scope="col">Full Name</th>
+              <th scope="col">Admin</th>
+              <th scope="col">Active</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody> 
+            {% if user_list %} 
+                {% for user in user_list.qs %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td> {{user.email}} </td>
+                    <td> 
+                      {% if user.first_name %}
+                        {{user.first_name}} {{user.last_name}}
+                      {% else %}
+                        N/A
+                      {% endif %}
+                    </td>
+                    <td>{{user.is_staff}}</td>
+                    <td>{{user.is_active}}</td>
+                    <td>
+                        {% comment %} <a class="btn btn-primary" href="#" role="button">View</a> {% endcomment %}
+                        <a class="btn btn-success" href="{% url 'authority:update_user' user.id %}" role="button">Edit</a>
+                        
+                    </td>
+                  </tr>
+                {% endfor %}     
+            {% endif %}
+            </tbody>      
+      </table>
+</div>
+
+{% endblock body %}

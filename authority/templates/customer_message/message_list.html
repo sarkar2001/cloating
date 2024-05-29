@@ -1,0 +1,56 @@
+{% extends 'authority_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} {{title}} {% endblock title %}
+
+
+{% block body %}
+<div class="bg-light rounded h-100 p-4">
+    <h6 class="mb-4">User Message</h6>
+    <div class="col-md-6 mb-4">
+      <form class="d-flex">
+        {{message_list.form.email}}
+        <button class="btn btn-primary ms-2" type="submit">Search</button>
+      </form>
+    </div>
+    
+    
+    <table class="table table table-hover ">
+        <thead class="table-dark">
+            <tr>
+              <th scope="col">Sl</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Subject</th>
+              <th scope="col">Send At</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody> 
+            {% if message_list %} 
+                {% for message in message_list.qs %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td> 
+                      {% if message.name %}
+                        {{message.name}}
+                      {% else %}
+                        N/A
+                      {% endif %}
+                    </td>
+                    <td>{{message.email}}</td>
+                    <td>{{message.subject}}</td>
+                    <td>{{message.created_at}}</td>
+                    <td>
+                        <a class="btn btn-success" href="{% url "authority:message_details" message.id %}" role="button">View</a>
+                        
+                    </td>
+                  </tr>
+                {% endfor %}     
+            {% endif %}
+            </tbody>      
+      </table>
+</div>
+
+{% endblock body %}

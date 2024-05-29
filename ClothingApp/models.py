@@ -5,21 +5,32 @@ from django.contrib.auth.models import User
 
 class Category(models.Model):
     title = models.CharField(max_length=15)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     def __str__(self):
         return self.title
 
+    def get_product_list(self):
+        return PRODUCT.objects.filter(
+            product_category__subcategory__category=self,
+        )
+
 class SubCategory(models.Model):
     name = models.CharField(max_length=15)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True, related_name= "subcategory")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
 
     def __str__(self):
         return self.name
 
-class Subsubcategory(models.Model):
+class ProductCategory(models.Model):
     name = models.CharField(max_length=15)
-    subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True, blank=True,related_name= "subsubcategory")
+    subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -27,6 +38,8 @@ class Subsubcategory(models.Model):
 
 class ProductSize(models.Model):
     size = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     def __str__(self):
         return self.size
@@ -34,6 +47,8 @@ class ProductSize(models.Model):
 
 class ProductColor(models.Model):
     color = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     def __str__(self):
         return self.color
@@ -45,10 +60,10 @@ class PRODUCT(models.Model):
         ('NEW', 'NEW'),
         ('OLD', 'OLD'),
     )
-    title=  models.CharField(max_length=15)
-    category= models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
-    subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True, blank=True)
-    subsubcategory = models.ForeignKey(Subsubcategory, on_delete=models.CASCADE, null=True, blank=True)
+    title=  models.CharField(max_length=50)
+    # category= models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
+    # subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True, blank=True)
+    product_category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE, null=True, blank=True)
     image1= models.ImageField(upload_to='PRODUCT_PIC/',null=True)
     image2 = models.ImageField(upload_to='PRODUCT_PIC/', null=True,blank=True)
     image3 = models.ImageField(upload_to='PRODUCT_PIC/', null=True,blank=True)
@@ -62,63 +77,60 @@ class PRODUCT(models.Model):
     def __str__(self):
         return self.title
 
-
-
-class Variation(models.Model):
-    sizetype = (
-        ('S', 'S'),
-        ('M', 'M'),
-        ('L', 'L'),
-        ('XL', 'XL'),
-    )
-    range = (
-        ('Black', 'Black'),
-        ('Grey', 'Grey'),
-        ('Green', 'Green'),
-        ('White', 'White'),
-
-    )
+class ProductSizeThrough(models.Model):
     product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
-    size = models.CharField(choices=sizetype,max_length=250,null=True,blank=True)
-    color = models.CharField(choices=range,max_length=250,null=True,blank=True)
-    stock = models.IntegerField(default=0,null=True)
+    product_size = models.ForeignKey(ProductSize, on_delete=models.CASCADE)
+    stock = models.PositiveIntegerField(blank=True, null=True)
 
-    def is_out_of_stock(self):
-        return self.stock <= 0
+    def __str__(self):
+        return f"{self.product.title} - {self.product_size.size}"
+
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
-    variation = models.ForeignKey('Variation', on_delete=models.CASCADE, blank=True, null=True)
+    size = models.ForeignKey(ProductSizeThrough, on_delete=models.CASCADE, blank=True, null=True)
+    is_ordered = models.BooleanField(default=False)
 
     def __str__(self):
-        size_display = self.variation.get_size_display() if self.variation else "N/A"
-        color_display = self.variation.get_color_display() if self.variation else "N/A"
-        return f"{self.user.username}'s Cart Item - Size: {size_display}, Color: {color_display}"
+        size_display = self.size.product_size.size if self.size else "N/A"
+        return f"{self.user.username}'s Cart Item - Product: {self.product.title}, Size: {size_display}"
+    
+    def subtotal(self):
+        if self.product.price:
+            return self.product.price * self.quantity
+        else:
+            return 0  # Or handle the case where price is not available
 
 
-
-class BillingInfo(models.Model):
+class DeliveryAddress(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    firstname = models.CharField(max_length=100)
-    lastname = models.CharField(max_length=100)
-    address = models.CharField(max_length=255)
-    city = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)
-    postcode = models.CharField(max_length=20)
-    email = models.EmailField()
-    phone = models.CharField(max_length=20)
-    def __str__(self):
-        return self.firstname
+    firstname = models.CharField(max_length=100, null=True, blank=True)
+    lastname = models.CharField(max_length=100, null=True, blank=True)
+    address = models.CharField(max_length=255, null=True, blank=True)
+    city = models.CharField(max_length=100, null=True, blank=True)
+    country = models.CharField(max_length=100, null=True, blank=True)
+    postcode = models.CharField(max_length=20, null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
+    phone = models.CharField(max_length=20, null=True, blank=True)
 
-class Order(models.Model):
-    billinginfo = models.ForeignKey(BillingInfo, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.user.username
+
+
+class OrderItem(models.Model):
+    PAYMENTSYSTEM = [
+        ("COD", "cash_on_delivery"),
+        # ("SSL", "ssl_commerz"),
+    ]
+    order_item = models.ManyToManyField(Cart, related_name="order_item")
+    delivery_address = models.ForeignKey(DeliveryAddress, on_delete=models.CASCADE, blank=True, null=True)
     date = models.DateField(auto_now=False, auto_now_add=True, null=True, blank=True)
-    status = models.CharField(max_length=100, default="pending")
-    paymentSystem = models.CharField(max_length=100, default="Cash On Delivery")
+    paymentSystem = models.CharField(choices=PAYMENTSYSTEM, max_length=250, null=True, blank=True)
+    delivery_fee = models.PositiveIntegerField(null=True, blank=True)
     total = models.PositiveIntegerField(blank=True, null=True)
     is_ordered = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.billinginfo.firstname
+        return str(self.id)

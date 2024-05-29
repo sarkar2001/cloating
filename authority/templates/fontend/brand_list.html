@@ -1,0 +1,55 @@
+{% extends 'authority_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} {{title}} {% endblock title %}
+
+
+{% block body %}
+<div class="bg-light rounded h-100 p-4">
+    <h6 class="mb-4">Brand List</h6>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-success" href="{% url "authority:add_brand" %}" role="button"><i class="fa-solid fa-circle-plus me-2"></i>Add Brand</a>
+    </div>
+    <div class="col-md-6 mb-4">
+      <form class="d-flex">
+        {{brand_list.form.name}}
+        <button class="btn btn-primary ms-2" type="submit">Search</button>
+      </form>
+    </div>
+    
+    
+    <table class="table table table-hover ">
+        <thead class="table-dark">
+            <tr>
+              <th scope="col">Sl</th>
+              <th scope="col">Brand</th>
+              <th scope="col">Logo</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody> 
+            {% if brand_list %} 
+                {% for brand in brand_list.qs %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td> 
+                      {% if brand.name %}
+                        {{brand.name}}
+                      {% else %}
+                        N/A
+                      {% endif %}
+                    </td>
+                    <td>{{brand.logo}}</td>
+                    <td>
+                        <a class="btn btn-success" href="{% url "authority:update_brand" brand.id %}" role="button">Edit</a>
+                        
+                    </td>
+                  </tr>
+                {% endfor %}     
+            {% endif %}
+            </tbody>      
+      </table>
+</div>
+
+{% endblock body %}

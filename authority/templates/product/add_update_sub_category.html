@@ -1,0 +1,32 @@
+{% extends 'authority_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} {{title}} {% endblock title %}
+
+{% block body %}
+<div class="bg-light rounded h-100 p-4">
+    {% if updated %}
+        <h6 class="mb-4">Update Sub-Category</h6>
+    {% else %}
+        <h6 class="mb-4">Add Sub-Category</h6>
+    {% endif %}
+    
+    <form method='POST' enctype="multipart/form-data"> {% csrf_token %}
+        <div class="row mb-4">
+            <div class="col">
+                <label for="exampleInputEmail1" class="form-label">Sub-Category Name</label>
+                {{form.name |add_class:"form-control" }}
+            </div>
+            <div class="col">
+                <label for="exampleInputEmail1" class="form-label">Category Name</label>
+                {{form.category |add_class:"form-control" }}
+            </div>
+        </div>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        
+    </form>
+</div>
+{% endblock body %}
